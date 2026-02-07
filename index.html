@@ -316,6 +316,19 @@
 </head>
 
 <body>
+  <!-- SVG SPRITE (ícones reais) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0; overflow:hidden" aria-hidden="true">
+  <symbol id="icon-whatsapp" viewBox="0 0 32 32">
+    <path fill="currentColor" d="M16 3C8.82 3 3 8.82 3 16c0 2.54.74 5.02 2.13 7.14L3 29l5.99-2.09A12.94 12.94 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm0 23.64c-2.19 0-4.33-.58-6.2-1.67l-.44-.26-3.56 1.24 1.18-3.47-.29-.45A10.64 10.64 0 1 1 16 26.64z"/>
+    <path fill="currentColor" d="M19.11 17.6c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.74.91-.91 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.43-.49.14-.16.19-.28.28-.47.09-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.47-.48-.64-.49-.17-.01-.36-.01-.55-.01-.19 0-.5.07-.76.36-.26.28-1 1-1 2.44s1.02 2.83 1.16 3.02c.14.19 2.01 3.07 4.88 4.3.68.29 1.21.46 1.62.59.68.22 1.29.19 1.78.11.54-.08 1.66-.68 1.9-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33z"/>
+  </symbol>
+
+  <symbol id="icon-instagram" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5C22 19.55 19.55 22 16.25 22h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 1.5C5.28 3.5 3.5 5.28 3.5 7.75v8.5c0 2.47 1.78 4.25 4.25 4.25h8.5c2.47 0 4.25-1.78 4.25-4.25v-8.5c0-2.47-1.78-4.25-4.25-4.25h-8.5z"/>
+    <path fill="currentColor" d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+    <circle fill="currentColor" cx="17.5" cy="6.5" r="1.25"/>
+  </symbol>
+</svg>
   <div class="desktop-bg"></div>
   <div class="stars"></div>
 
@@ -352,74 +365,59 @@
 
             <div class="audio-hint" id="audioHint">🔊 Toque na tela (ou no botão) para ativar o som</div>
 
-           <div class="hero-buttons">
+           <<div class="hero-buttons">
 
-  <!-- BOTÃO PRINCIPAL – VENDA -->
   <a
     href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20Não%20Brisa%20Trip%20👽🌀"
     target="_blank"
     rel="noopener noreferrer"
     class="btn primary"
   >
-    <!-- Ícone WhatsApp -->
-    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.6c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.74.91-.91 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.43-.49.14-.16.19-.28.28-.47.09-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.47-.48-.64-.49-.17-.01-.36-.01-.55-.01-.19 0-.5.07-.76.36-.26.28-1 1-1 2.44s1.02 2.83 1.16 3.02c.14.19 2.01 3.07 4.88 4.3.68.29 1.21.46 1.62.59.68.22 1.29.19 1.78.11.54-.08 1.66-.68 1.9-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33z"/>
-      <path d="M16 3C8.82 3 3 8.82 3 16c0 2.54.74 5.02 2.13 7.14L3 29l5.99-2.09A12.94 12.94 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm0 23.64c-2.19 0-4.33-.58-6.2-1.67l-.44-.26-3.56 1.24 1.18-3.47-.29-.45A10.64 10.64 0 1 1 16 26.64z"/>
-    </svg>
+    <svg class="btn-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
     Garantir minha vaga agora
   </a>
 
-  <!-- GRUPO WHATSAPP NÃO SUMA -->
   <a
     href="https://chat.whatsapp.com/HlCRqCbzDnj9w2Va4u9Jvx"
     target="_blank"
     rel="noopener noreferrer"
     class="btn secondary"
   >
-    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.6c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.74.91-.91 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.43-.49.14-.16.19-.28.28-.47.09-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.47-.48-.64-.49-.17-.01-.36-.01-.55-.01-.19 0-.5.07-.76.36-.26.28-1 1-1 2.44s1.02 2.83 1.16 3.02c.14.19 2.01 3.07 4.88 4.3z"/>
-    </svg>
+    <svg class="btn-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
     Grupo WhatsApp Não Suma Trip
   </a>
 
-  <!-- GRUPO WHATSAPP FÁBRICA DE BRISA -->
   <a
     href="https://chat.whatsapp.com/E1wYISIv0u74yFh2mMJx8u"
     target="_blank"
     rel="noopener noreferrer"
     class="btn secondary"
   >
-    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M19.11 17.6c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.74.91-.91 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.24-1.37-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57z"/>
-    </svg>
+    <svg class="btn-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
     Grupo WhatsApp Fábrica de Brisa
   </a>
 
-  <!-- INSTAGRAM NÃO BRISA -->
   <a
     href="https://instagram.com/naobrisatrip"
     target="_blank"
     rel="noopener noreferrer"
     class="btn secondary"
   >
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2.982c2.937 0 3.285.011 4.445.064 1.166.054 1.963.24 2.424.403a4.91 4.91 0 0 1 1.78 1.156 4.91 4.91 0 0 1 1.156 1.78c.163.461.349 1.258.403 2.424.053 1.16.064 1.508.064 4.445 0 2.937-.011 3.285-.064 4.445-.054 1.166-.24 1.963-.403 2.424a4.91 4.91 0 0 1-1.156 1.78 4.91 4.91 0 0 1-1.78 1.156c-.461.163-1.258.349-2.424.403-1.16.053-1.508.064-4.445.064-2.937 0-3.285-.011-4.445-.064-1.166-.054-1.963-.24-2.424-.403a4.91 4.91 0 0 1-1.78-1.156 4.91 4.91 0 0 1-1.156-1.78c-.163-.461-.349-1.258-.403-2.424-.053-1.16-.064-1.508-.064-4.445z"/>
-    </svg>
+    <svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
     Não Brisa Trip
   </a>
 
-  <!-- INSTAGRAM NÃO SUMA -->
   <a
     href="https://instagram.com/naosuma_trip"
     target="_blank"
     rel="noopener noreferrer"
     class="btn secondary"
   >
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2.982c2.937 0 3.285.011 4.445.064 1.166.054 1.963.24 2.424.403a4.91 4.91 0 0 1 1.78 1.156 4.91 4.91 0 0 1 1.156 1.78c.163.461.349 1.258.403 2.424.053 1.16.064 1.508.064 4.445z"/>
-    </svg>
+    <svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
     Não Suma Trip
   </a>
+
+</div>
 
 </div>
             <audio id="bgMusic" preload="auto" loop>
