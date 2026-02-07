@@ -2,10 +2,6 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <!--
-    Não dá pra "forçar qualquer navegador" a renderizar SEMPRE como mobile.
-    O máximo confiável é: viewport correto + CSS responsivo (mobile + desktop).
-  -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Não Brisa Trip | PSYFLY</title>
 
@@ -21,55 +17,115 @@
       --glass-border:rgba(255,255,255,.20);
       --stroke:rgba(255,255,255,.22);
       --pulse:#7c5cff;
-      --radius:18px;
-      --max:980px;
+
+      /* “Tela limitada” quando for desktop */
+      --desk-w: 430px;     /* largura tipo mobile */
+      --desk-h: 930px;     /* altura tipo mobile */
+      --desk-radius: 26px; /* arredondado leve */
+      --desk-padding: 14px;
     }
 
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       min-height:100vh;
-      background:var(--bg);
+      background:#090a14;
       overflow:hidden;
     }
 
-    /* Vídeo de fundo */
-    .bg-video{
+    /* Fundo fora da “tela limitada” (só aparece no desktop) */
+    .desktop-bg{
       position:fixed;
+      inset:0;
+      background:
+        radial-gradient(1100px 680px at 50% 18%, rgba(124,92,255,.18), rgba(9,10,20,0) 60%),
+        radial-gradient(820px 520px at 20% 78%, rgba(75,54,255,.14), rgba(9,10,20,0) 60%),
+        radial-gradient(900px 600px at 80% 84%, rgba(234,240,255,.07), rgba(9,10,20,0) 70%),
+        linear-gradient(180deg, #0b0c18, #050712);
+      z-index:-10;
+    }
+
+    .stars{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.55;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.65), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,.6), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,.5), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 40% 15%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 55% 85%, rgba(255,255,255,.5), rgba(255,255,255,0) 55%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.45), rgba(255,255,255,0) 55%);
+      animation: twinkle 6s ease-in-out infinite;
+      z-index:-9;
+    }
+
+    @keyframes twinkle{
+      0%,100%{ opacity:.45 }
+      50%{ opacity:.70 }
+    }
+
+    /* Palco */
+    .stage{
+      height:100vh;
+      width:100%;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+    }
+
+    /* “Tela limitada” para desktop */
+    .viewport{
+      position:relative;
+      width: min(var(--desk-w), 95vw);
+      height: min(var(--desk-h), 92vh);
+      border-radius: var(--desk-radius);
+      overflow:hidden;
+      background: var(--bg);
+      box-shadow:
+        0 30px 120px rgba(0,0,0,.70),
+        0 10px 35px rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    /* O site de verdade ocupa a viewport inteira */
+    .bg-video{
+      position:absolute;
       inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
-      z-index:-3;
-      background:var(--bg);
+      z-index:0;
+      background: var(--bg);
       filter:saturate(1.05) contrast(1.02);
     }
 
-    /* Overlay */
     .overlay{
-      position:fixed;
+      position:absolute;
       inset:0;
-      background: radial-gradient(1200px 700px at 50% 30%,
-        rgba(124,92,255,.18),
-        rgba(5,7,18,0.0) 55%
-      ),
-      linear-gradient(
-        to top,
-        rgba(5,7,18,0.96),
-        rgba(5,7,18,0.60),
-        rgba(5,7,18,0.28)
-      );
-      z-index:-2;
+      background:
+        radial-gradient(1200px 700px at 50% 30%,
+          rgba(124,92,255,.18),
+          rgba(5,7,18,0) 55%
+        ),
+        linear-gradient(
+          to top,
+          rgba(5,7,18,0.96),
+          rgba(5,7,18,0.60),
+          rgba(5,7,18,0.28)
+        );
+      z-index:1;
     }
 
-    /* Layout responsivo: grid central */
     .shell{
-      position:relative;
-      height:100vh;
-      width:100%;
+      position:absolute;
+      inset:0;
       display:grid;
-      place-items:end center; /* mobile: cola embaixo */
+      place-items:end center;
       padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+      z-index:2;
     }
 
     .panel{
@@ -82,7 +138,6 @@
       gap:14px;
     }
 
-    /* Desktop: vira um card central com dois lados */
     .panel-inner{
       width:100%;
       border:1px solid rgba(255,255,255,.12);
@@ -120,12 +175,11 @@
       margin-top:2px;
     }
 
-    /* Contador */
     .countdown{
       width:100%;
       border:1px solid var(--glass-border);
       background:var(--glass-bg);
-      border-radius:var(--radius);
+      border-radius:18px;
       padding:12px 14px;
       backdrop-filter:blur(6px);
       -webkit-backdrop-filter:blur(6px);
@@ -142,7 +196,6 @@
       letter-spacing:.6px;
     }
 
-    /* Pulso BPM */
     @keyframes pulseBeat {
       0%   { transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
       40%  { transform:scale(1.03); box-shadow:0 0 30px rgba(124,92,255,.65); }
@@ -160,7 +213,6 @@
       border-color:transparent;
     }
 
-    /* Botões */
     .hero-buttons{
       width:100%;
       display:flex;
@@ -203,7 +255,6 @@
       outline-offset:3px;
     }
 
-    /* Hint do áudio */
     .audio-hint{
       font-size:12px;
       color:var(--muted2);
@@ -212,7 +263,6 @@
     }
     .audio-hint[hidden]{ display:none; }
 
-    /* Toggle som */
     .sound-toggle{
       margin-top:10px;
       width:100%;
@@ -238,78 +288,44 @@
     .sound-btn:active{ transform: translateY(0px); }
     .sound-btn[aria-pressed="true"]{ border-color: rgba(124,92,255,.65); }
 
-    /* Desktop / PC: centraliza e cria um visual "card" maior */
-    @media (min-width: 900px){
-      .shell{
-        place-items:center; /* em vez de embaixo, centraliza */
-        padding: 28px;
+    /* Mobile real: ocupar a tela toda (sem limitar) */
+    @media (max-width: 520px), (max-height: 740px){
+      body{ overflow:hidden; }
+      .stage{ padding:0; place-items:stretch; }
+      .viewport{
+        width:100vw;
+        height:100vh;
+        border-radius:0;
+        border:none;
+        box-shadow:none;
       }
-
-      .panel{
-        max-width: var(--max);
-        align-items:stretch;
-        text-align:left;
-      }
-
-      .panel-inner{
-        padding: 26px;
-      }
-
-      .grid{
-        display:grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap:22px;
-        align-items:start;
-      }
-
-      .brand{ margin-bottom: 0; }
-      .hero-title{ font-size:38px; }
-      .hero-subtitle{ font-size:15px; }
-
-      .countdown-time{ font-size:20px; }
-
-      .hero-buttons .btn{ justify-content:center; }
-      .right-col{
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-      }
+      .desktop-bg, .stars{ display:none; }
     }
 
-    /* Telas baixas: compacta */
-    @media (max-height: 640px){
-      .shell{ padding-top:12px; }
-      .panel{ gap:10px; }
-      .hero-title{ font-size:22px; }
-      .countdown-time{ font-size:16px; }
-      .btn{ padding:12px; }
-    }
-
-    /* Respeita reduzir movimento */
     @media (prefers-reduced-motion: reduce){
       .countdown.pulse{ animation: none; }
-      .btn, .sound-btn{ transition: none; }
+      .stars{ animation:none; }
+      .btn, .sound-btn{ transition:none; }
     }
   </style>
 </head>
 
 <body>
+  <div class="desktop-bg"></div>
+  <div class="stars"></div>
 
-  <!-- Vídeo de fundo -->
-  <video autoplay muted loop playsinline preload="metadata" class="bg-video" poster="poster.jpg">
-    <!-- Opcional: se tiver webm, coloque antes do mp4 -->
-    <!-- <source src="fundo.webm" type="video/webm"> -->
-    <source src="fundo.mp4" type="video/mp4">
-  </video>
+  <div class="stage">
+    <!-- Em desktop: fica “tipo mobile” no centro. Em mobile: ocupa a tela toda -->
+    <div class="viewport" aria-label="Visualização mobile centralizada no desktop">
+      <video autoplay muted loop playsinline preload="metadata" class="bg-video" poster="poster.jpg">
+        <source src="fundo.mp4" type="video/mp4">
+      </video>
 
-  <div class="overlay"></div>
+      <div class="overlay"></div>
 
-  <main class="shell">
-    <section class="panel">
-      <div class="panel-inner">
-        <div class="grid">
-          <!-- Coluna esquerda (texto/brand) -->
-          <div>
+      <main class="shell">
+        <section class="panel">
+          <div class="panel-inner">
             <div class="brand">
               <h1 class="hero-title">Não Brisa Trip</h1>
               <p class="hero-subtitle">
@@ -332,14 +348,6 @@
 
             <div class="audio-hint" id="audioHint">🔊 Toque na tela (ou no botão) para ativar o som</div>
 
-            <!-- Áudio de fundo -->
-            <audio id="bgMusic" preload="auto" loop>
-              <source src="espacosideral.mp3" type="audio/mpeg">
-            </audio>
-          </div>
-
-          <!-- Coluna direita (CTAs) -->
-          <div class="right-col">
             <div class="hero-buttons">
               <a
                 href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20Não%20Brisa%20Trip%20👽🌀"
@@ -369,14 +377,14 @@
               </a>
             </div>
 
-            <div class="meta-line" style="margin-top:6px;">
-              💡 Dica: no celular, o vídeo pode demorar um pouco no 4G. O poster entra primeiro.
-            </div>
+            <audio id="bgMusic" preload="auto" loop>
+              <source src="espacosideral.mp3" type="audio/mpeg">
+            </audio>
           </div>
-        </div>
-      </div>
-    </section>
-  </main>
+        </section>
+      </main>
+    </div>
+  </div>
 
   <script>
     /* =========================
@@ -398,9 +406,9 @@
     /* =========================
        ÁUDIO: start/stop premium
        ========================= */
-    let musicStarted = false;      // já foi autorizado por interação do usuário
-    let userWantsSound = false;    // intenção explícita do usuário (toggle)
-    let wasPlaying = false;        // usado pra pausar/retomar em troca de aba
+    let musicStarted = false;
+    let userWantsSound = false;
+    let wasPlaying = false;
 
     function updateSoundUI(){
       if (!soundBtn) return;
@@ -411,7 +419,6 @@
     }
 
     function trySeekAndPlay(){
-      // Tenta posicionar no ponto desejado, sem quebrar se falhar
       try { audio.currentTime = 145; } catch(e) {}
       audio.volume = 0.6;
 
@@ -419,7 +426,6 @@
         musicStarted = true;
         updateSoundUI();
       }).catch(() => {
-        // Se bloqueou, mantém hint e UI como desligado
         updateSoundUI();
       });
     }
@@ -427,7 +433,6 @@
     function startMusic(){
       if (!userWantsSound) return;
 
-      // Em alguns devices, o seek é melhor após loadedmetadata
       if (audio.readyState >= 1) {
         trySeekAndPlay();
       } else {
@@ -443,21 +448,14 @@
       updateSoundUI();
     }
 
-    // Toggle explícito
     if (soundBtn){
       soundBtn.addEventListener("click", () => {
         userWantsSound = !userWantsSound;
-
-        if (userWantsSound){
-          // Isso conta como interação do usuário, então é a hora ideal de tocar
-          startMusic();
-        } else {
-          stopMusic();
-        }
+        if (userWantsSound) startMusic();
+        else stopMusic();
       });
     }
 
-    // Também permite iniciar no primeiro toque/click da página
     function firstInteractionStart(){
       if (!userWantsSound) return;
       startMusic();
@@ -465,7 +463,6 @@
     document.addEventListener("touchstart", firstInteractionStart, { passive:true });
     document.addEventListener("click", firstInteractionStart);
 
-    /* Pausar ao trocar de aba/sair do app e retomar ao voltar (se estava tocando) */
     function handleVisibilityChange(){
       if (document.hidden){
         if (!audio.paused){
@@ -480,7 +477,6 @@
             wasPlaying = false;
             updateSoundUI();
           }).catch(() => {
-            // Se o browser bloquear, mantém desligado visualmente
             wasPlaying = false;
             updateSoundUI();
           });
@@ -533,8 +529,6 @@
         box.classList.remove("pulse");
         box.classList.add("live");
         if (timer) clearInterval(timer);
-
-        // se o usuário já ligou o som, tenta tocar quando virar "live"
         startMusic();
         return;
       }
@@ -543,17 +537,13 @@
     }
 
     update();
-
-    // alinha o update para virada de segundo
     const msToNextSecond = 1000 - (Date.now() % 1000);
     setTimeout(() => {
       update();
       timer = setInterval(update, 1000);
     }, msToNextSecond);
 
-    /* =========================
-       Fallback vídeo
-       ========================= */
+    /* Fallback vídeo */
     const video = document.querySelector(".bg-video");
     if (video){
       video.addEventListener("error", () => {
@@ -561,12 +551,7 @@
       });
     }
 
-    /* =========================
-       Estado inicial do som
-       =========================
-       Se quiser iniciar "pronto pra ligar", deixe true.
-       Por padrão, eu deixei false (não intrusivo).
-    */
+    /* Estado inicial do som */
     userWantsSound = false;
     updateSoundUI();
   </script>
