@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Não Brisa Trip | PSYFLY</title>
+
+  <style>
+    *{ box-sizing:border-box; margin:0; padding:0 }
+
+    :root{
+      --bg:#050712;
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.85);
+      --glass-bg:rgba(255,255,255,.08);
+      --glass-border:rgba(255,255,255,.2);
+      --pulse:#7c5cff;
+    }
+
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      min-height:100vh;
+      overflow:hidden;
+      background:var(--bg);
+    }
+
+    /* Vídeo de fundo */
+    .bg-video{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-3;
+      background:var(--bg); /* fallback se poster não carregar */
+    }
+
+    /* Overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: linear-gradient(
+        to top,
+        rgba(5,7,18,0.96),
+        rgba(5,7,18,0.55),
+        rgba(5,7,18,0.25)
+      );
+      z-index:-2;
+    }
+
+    /* Rodapé hero */
+    .hero-footer{
+      position:fixed;
+      bottom:0;
+      left:0;
+      width:100%;
+      padding:24px 18px calc(24px + env(safe-area-inset-bottom));
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+      z-index:2;
+    }
+
+    .hero-title{
+      font-size:26px;
+      font-weight:700;
+      letter-spacing:.5px;
+    }
+
+    .hero-subtitle{
+      font-size:14px;
+      line-height:1.4;
+      color:var(--muted);
+    }
+
+    /* Contador */
+    .countdown{
+      width:100%;
+      max-width:420px;
+      border:1px solid var(--glass-border);
+      background:var(--glass-bg);
+      border-radius:16px;
+      padding:12px 14px;
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+    }
+
+    .countdown-label{
+      font-size:12px;
+      color:rgba(234,240,255,.75);
+      margin-bottom:6px;
+    }
+
+    .countdown-time{
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:.6px;
+    }
+
+    /* Pulso BPM */
+    @keyframes pulseBeat {
+      0%   { transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
+      40%  { transform:scale(1.03); box-shadow:0 0 30px rgba(124,92,255,.65); }
+      100% { transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
+    }
+
+    .countdown.pulse{
+      animation-name:pulseBeat;
+      animation-timing-function:ease-in-out;
+      animation-iteration-count:infinite;
+      border-color:rgba(124,92,255,.75);
+      will-change: transform, box-shadow;
+    }
+
+    .countdown.live{
+      background:linear-gradient(135deg,#7c5cff,#4b36ff);
+      border-color:transparent;
+    }
+
+    /* Botões */
+    .hero-buttons{
+      width:100%;
+      max-width:420px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(255,255,255,.06);
+      font-size:15px;
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg,#7c5cff,#4b36ff);
+      border:none;
+    }
+
+    .btn:focus-visible{
+      outline:2px solid rgba(234,240,255,.55);
+      outline-offset:3px;
+    }
+
+    /* Hint do áudio */
+    .audio-hint{
+      font-size:12px;
+      color:rgba(234,240,255,.72);
+      user-select:none;
+    }
+    .audio-hint[hidden]{ display:none; }
+
+    /* Ajustes para telas baixas */
+    @media (max-height: 640px){
+      .hero-footer{ padding-top:14px; gap:10px; }
+      .hero-title{ font-size:22px; }
+      .countdown-time{ font-size:16px; }
+      .btn{ padding:12px; }
+    }
+
+    /* Respeita reduzir movimento */
+    @media (prefers-reduced-motion: reduce){
+      .countdown.pulse{ animation: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Vídeo de fundo -->
+  <video autoplay muted loop playsinline preload="metadata" class="bg-video" poster="poster.jpg">
+    <!-- Se você tiver webm, coloque antes do mp4 -->
+    <!-- <source src="fundo.webm" type="video/webm"> -->
+    <source src="fundo.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <!-- Conteúdo -->
+  <footer class="hero-footer">
+
+    <h1 class="hero-title">Não Brisa Trip</h1>
+
+    <p class="hero-subtitle">
+      🌀 Viaje além da imaginação<br>
+      🎉 Estreia: <strong>PSYFLY</strong>
+    </p>
+
+    <div class="countdown pulse" aria-live="polite">
+      <div class="countdown-label">⏳ PSYFLY começa em</div>
+      <div class="countdown-time" id="countdown">--</div>
+    </div>
+
+    <div class="hero-buttons">
+      <a
+        href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20Não%20Brisa%20Trip%20👽🌀"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn primary"
+      >
+        🎟️ Garantir vaga no WhatsApp
+      </a>
+
+      <a
+        href="https://instagram.com/naobrisatrip"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn"
+      >
+        📸 Instagram @naobrisatrip
+      </a>
+
+      <a
+        href="https://instagram.com/naosumatrip"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn"
+      >
+        🛸 Instagram @naosumatrip
+      </a>
+    </div>
+
+    <div class="audio-hint" id="audioHint">🔊 Toque na tela para ativar o som</div>
+
+    <!-- Áudio de fundo -->
+    <audio id="bgMusic" preload="auto" loop>
+      <source src="espacosideral.mp3" type="audio/mpeg">
+    </audio>
+
+  </footer>
+
+  <!-- JS -->
+  <script>
+    /* DATA DO EVENTO (Brasil -03:00) */
+    const target = new Date("2026-03-14T08:00:00-03:00").getTime();
+
+    /* BPM DA MÚSICA */
+    const BPM = 140;
+
+    const countdownEl = document.getElementById("countdown");
+    const box = document.querySelector(".countdown");
+    const audio = document.getElementById("bgMusic");
+    const hint = document.getElementById("audioHint");
+
+    /* Sincroniza pulso com BPM */
+    const beatSeconds = 60 / BPM;
+    box.style.animationDuration = beatSeconds + "s";
+
+    /* Música com início mais confiável */
+    let musicStarted = false;
+
+    function trySeekAndPlay(){
+      // tenta posicionar no ponto desejado, mas sem quebrar se o browser bloquear
+      try { audio.currentTime = 145; } catch(e) {}
+
+      audio.volume = 0.6;
+
+      audio.play().then(() => {
+        musicStarted = true;
+        if (hint) hint.hidden = true;
+      }).catch(() => {
+        // Se bloquear, mantém o hint
+        if (hint) hint.hidden = false;
+      });
+    }
+
+    function startMusic(){
+      if (musicStarted) return;
+
+      // Em alguns dispositivos, só dá pra dar seek depois de carregar metadata
+      if (audio.readyState >= 1) {
+        trySeekAndPlay();
+      } else {
+        audio.addEventListener("loadedmetadata", trySeekAndPlay, { once:true });
+        // força uma tentativa caso loadedmetadata demore
+        setTimeout(() => {
+          if (!musicStarted) trySeekAndPlay();
+        }, 800);
+      }
+    }
+
+    document.addEventListener("touchstart", startMusic, { once:true, passive:true });
+    document.addEventListener("click", startMusic, { once:true });
+
+    /* Contador (setInterval + alinhamento no segundo) */
+    let timer = null;
+
+    function formatCountdown(ms){
+      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+      const d = Math.floor(totalSeconds / 86400);
+      const h = Math.floor((totalSeconds % 86400) / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+
+      return `${d}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+    }
+
+    function update(){
+      const now = Date.now();
+      const diff = target - now;
+
+      if(diff <= 0){
+        countdownEl.textContent = "🚌 Embarque iniciado!";
+        box.classList.remove("pulse");
+        box.classList.add("live");
+        if (timer) clearInterval(timer);
+
+        // Se o usuário já interagiu e a música pode tocar, tenta iniciar aqui também
+        // (não garante em todos os navegadores, mas ajuda quando já houve toque)
+        startMusic();
+        return;
+      }
+
+      countdownEl.textContent = formatCountdown(diff);
+    }
+
+    // primeiro update imediato
+    update();
+
+    // alinha o interval no começo do próximo segundo
+    const msToNextSecond = 1000 - (Date.now() % 1000);
+    setTimeout(() => {
+      update();
+      timer = setInterval(update, 1000);
+    }, msToNextSecond);
+
+    /* Se o vídeo falhar, mantém o fundo sólido (já tem background no body) */
+    const video = document.querySelector(".bg-video");
+    if (video){
+      video.addEventListener("error", () => {
+        // opcional: você pode trocar o poster ou esconder o vídeo
+        video.style.display = "none";
+      });
+    }
+  </script>
+
+</body>
+</html>
