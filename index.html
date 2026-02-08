@@ -212,7 +212,47 @@
 
   @media (prefers-reduced-motion: reduce){
     .btn.ig::before{ animation:none; }
-  }
+  }.hub[hidden]{ display:none !important; }
+
+.hub{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+
+.hub-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter: blur(8px);
+}
+
+.hub-card{
+  position:relative;
+  width:min(420px, 92vw);
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.07);
+  backdrop-filter: blur(12px);
+  padding:18px;
+  box-shadow: 0 30px 120px rgba(0,0,0,.65);
+}
+
+.hub-title{
+  font-size:16px;
+  font-weight:850;
+  letter-spacing:.2px;
+  margin-bottom:6px;
+}
+
+.hub-sub{
+  font-size:13px;
+  color:rgba(234,240,255,.78);
+  margin-bottom:14px;
+}
 </style>
 
 </head>
@@ -305,10 +345,13 @@
   </a>
 
   <!-- INSTAGRAM (PÁGINA HUB) -->
-  <a href="instagram.html" class="btn secondary ig">
-    <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
-      <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
-    </svg>
+  <a href="#" id="openIgHub" class="btn secondary ig">
+  <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+    <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+  </svg>
+  Instagram
+</a>
+
     Instagram
   </a>
 
@@ -368,8 +411,75 @@
       soundBtn.textContent = "🔇 Som desligado";
       hint.style.display="block";
     }
-  };
-</script>
+  };const igHub = document.getElementById("igHub");
+const openIgHub = document.getElementById("openIgHub");
 
+function openHub(){
+  igHub.hidden = false;
+  igHub.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeHub(){
+  igHub.hidden = true;
+  igHub.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "hidden"; // seu body já é hidden, mantém
+}
+
+openIgHub?.addEventListener("click", (e) => {
+  e.preventDefault();
+  openHub();
+});
+
+igHub?.addEventListener("click", (e) => {
+  if (e.target?.matches("[data-close]")) closeHub();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && igHub && !igHub.hidden) closeHub();
+});
+
+</script>
+<!-- HUB INSTAGRAM (overlay, não troca de página) -->
+<div class="hub" id="igHub" hidden aria-hidden="true">
+  <div class="hub-backdrop" data-close></div>
+
+  <div class="hub-card" role="dialog" aria-modal="true" aria-label="Instagram Hub">
+    <div class="hub-title">Instagram | Hub de Links</div>
+    <div class="hub-sub">Escolha a página que você quer abrir ✨</div>
+
+    <div class="hero-buttons">
+      <a class="btn secondary ig" href="https://instagram.com/naobrisatrip" target="_blank" rel="noopener noreferrer">
+        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+          <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+        </svg>
+        Não Brisa Trip
+      </a>
+
+      <a class="btn secondary ig" href="https://instagram.com/naosuma_trip" target="_blank" rel="noopener noreferrer">
+        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+          <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+        </svg>
+        Não Suma Trip
+      </a>
+
+      <a class="btn secondary ig" href="https://instagram.com/fabricadebrisa" target="_blank" rel="noopener noreferrer">
+        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+          <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+        </svg>
+        Fábrica de Brisa
+      </a>
+
+      <a class="btn secondary ig" href="https://instagram.com/fabricadasminas" target="_blank" rel="noopener noreferrer">
+        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+          <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+        </svg>
+        Fábrica das Minas
+      </a>
+
+      <button class="btn back" type="button" data-close>← Voltar</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
