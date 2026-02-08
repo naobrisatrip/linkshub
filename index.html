@@ -1,5 +1,8 @@
 <!-- ===========================
-index.html (COMPLETO, com tudo que você pediu)
+index.html (COMPLETO - corrigido)
+- Volta o botão Comunidade
+- Toque na tela ativa o som (primeiro toque liga)
+- Mantém botão de som para desligar/ligar depois
 =========================== -->
 <!doctype html>
 <html lang="pt-BR">
@@ -74,7 +77,7 @@ index.html (COMPLETO, com tudo que você pediu)
       width:min(var(--desk-w),95vw);
       height:min(var(--desk-h),92vh);
       border-radius:26px;
-      overflow:hidden; /* mantém bordas arredondadas, o resto a gente resolve com padding interno */
+      overflow:hidden;
       background:var(--bg);
       box-shadow:0 30px 120px rgba(0,0,0,.7);
       border:1px solid rgba(255,255,255,.1);
@@ -127,10 +130,9 @@ index.html (COMPLETO, com tudo que você pediu)
       padding:18px 18px 26px;
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
-      overflow:visible; /* não cortar sombras/scale */
+      overflow:visible;
     }
 
-    /* TEXTO DE ABERTURA (exatamente como você pediu) */
     .opening{
       font-size:14px;
       line-height:1.45;
@@ -145,7 +147,6 @@ index.html (COMPLETO, com tudo que você pediu)
       margin-bottom:14px;
     }
 
-    /* CONTADOR (formato solicitado) */
     .countdown{
       border:1px solid var(--glass-border);
       background:var(--glass-bg);
@@ -178,7 +179,6 @@ index.html (COMPLETO, com tudo que você pediu)
       border-color:rgba(124,92,255,.75);
     }
 
-    /* Som */
     .sound-row{
       margin:8px 0 6px;
       display:flex;
@@ -203,7 +203,6 @@ index.html (COMPLETO, com tudo que você pediu)
     }
     .audio-hint[hidden]{ display:none !important; }
 
-    /* Botões */
     .hero-buttons{
       display:flex;
       flex-direction:column;
@@ -237,7 +236,6 @@ index.html (COMPLETO, com tudo que você pediu)
       border:none;
     }
 
-    /* CTA pulsante (fechar venda) */
     .btn-main{
       padding:18px;
       border-radius:18px;
@@ -273,7 +271,6 @@ index.html (COMPLETO, com tudo que você pediu)
       100%   { transform: translateX(140%); opacity:0; }
     }
 
-    /* SVG padronizado */
     .btn-icon{
       width:18px;
       height:18px;
@@ -281,18 +278,14 @@ index.html (COMPLETO, com tudo que você pediu)
       flex-shrink:0;
     }
 
-    /* WhatsApp: verde apenas nos botões WA */
     .btn.wa .btn-icon{ color: var(--wa); }
-    .btn.wa{
-      border-color: rgba(37,211,102,.35);
-    }
+    .btn.wa{ border-color: rgba(37,211,102,.35); }
     .btn.wa.secondary{
       background:
         radial-gradient(120% 180% at 20% 0%, rgba(37,211,102,.14), transparent 55%),
         rgba(255,255,255,.06);
     }
 
-    /* Instagram: gradiente + flow */
     .btn.ig{
       border-color: rgba(255,0,168,.35);
       background:
@@ -325,14 +318,12 @@ index.html (COMPLETO, com tudo que você pediu)
       100%{ transform: rotate(360deg); }
     }
 
-    /* Texto abaixo do CTA */
     .limited{
       margin-top:10px;
       font-size:12px;
       color:rgba(234,240,255,.78);
     }
 
-    /* Rodapé discreto */
     .footer-note{
       margin-top:12px;
       font-size:12px;
@@ -345,7 +336,7 @@ index.html (COMPLETO, com tudo que você pediu)
       border-bottom:1px solid rgba(234,240,255,.25);
     }
 
-    /* HUB overlay (Instagram) */
+    /* HUB */
     .hub[hidden]{ display:none !important; }
     .hub{
       position:absolute;
@@ -376,6 +367,7 @@ index.html (COMPLETO, com tudo que você pediu)
       box-shadow: 0 30px 120px rgba(0,0,0,.65);
       z-index:1;
       overflow:visible;
+      text-align:left;
     }
     .hub-title{
       font-size:16px;
@@ -402,11 +394,7 @@ index.html (COMPLETO, com tudo que você pediu)
     }
 
     @media (max-width:520px){
-      .stage{
-        padding:0;
-        min-height:100vh;
-        min-height:100dvh;
-      }
+      .stage{ padding:0; min-height:100vh; min-height:100dvh; }
       .viewport{
         width:100vw;
         height:100vh;
@@ -421,10 +409,8 @@ index.html (COMPLETO, com tudo que você pediu)
 </head>
 
 <body>
-  <!-- Texto oculto (SEO / acessibilidade) -->
   <span class="sr-only">👽 NÃO BRISA TRIP</span>
 
-  <!-- SVG SPRITE (WA + IG) -->
   <svg xmlns="http://www.w3.org/2000/svg"
        xmlns:xlink="http://www.w3.org/1999/xlink"
        style="position:absolute;width:0;height:0;overflow:hidden"
@@ -456,7 +442,6 @@ index.html (COMPLETO, com tudo que você pediu)
         <div class="panel">
           <div class="panel-inner">
 
-            <!-- Texto de abertura (VISÍVEL) -->
             <p class="opening">🌀 Viaje além da imaginação.
 🎉 A experiência começa antes da pista.
 
@@ -465,7 +450,6 @@ index.html (COMPLETO, com tudo que você pediu)
 
             <div class="meta-line">🚌 Barueri • Carapicuíba • Osasco • Barra Funda</div>
 
-            <!-- Contador (formato solicitado) -->
             <div class="countdown pulse" id="countdownLink" role="link" tabindex="0" aria-label="Clique para garantir sua vaga no WhatsApp">
               <div class="countdown-time" id="countdown">⏳ Faltam -- dias para a PSYFLY</div>
             </div>
@@ -476,7 +460,6 @@ index.html (COMPLETO, com tudo que você pediu)
             <div class="audio-hint" id="audioHint">🔊 Toque na tela (ou no botão) para ativar o som</div>
 
             <div class="hero-buttons">
-              <!-- CTA principal -->
               <a
                 href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽"
                 target="_blank"
@@ -489,10 +472,21 @@ index.html (COMPLETO, com tudo que você pediu)
                 GARANTIR MINHA VAGA | PSYFLY
               </a>
 
-              <!-- Abaixo do CTA -->
               <div class="limited">Vagas limitadas</div>
 
-              <!-- Instagram (abre hub overlay) -->
+              <!-- ✅ VOLTOU: Comunidade Não Suma Trip -->
+              <a
+                href="https://chat.whatsapp.com/HlCRqCbzDnj9w2Va4u9Jvx"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary wa"
+              >
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32">
+                  <use href="#icon-whatsapp" xlink:href="#icon-whatsapp"></use>
+                </svg>
+                Comunidade Não Suma Trip
+              </a>
+
               <button class="btn secondary ig" id="openIgHub" type="button">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                   <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
@@ -501,7 +495,6 @@ index.html (COMPLETO, com tudo que você pediu)
               </button>
             </div>
 
-            <!-- Confiança + rodapé -->
             <div class="footer-note">
               Da mesma família da Não Suma Trip<br>
               © 2025 Não Brisa Trip | Desenvolvido por:
@@ -516,7 +509,6 @@ index.html (COMPLETO, com tudo que você pediu)
         </div>
       </main>
 
-      <!-- HUB INSTAGRAM (overlay) -->
       <div class="hub" id="igHub" hidden aria-hidden="true">
         <div class="hub-backdrop" data-close></div>
 
@@ -539,20 +531,20 @@ index.html (COMPLETO, com tudo que você pediu)
               Não Suma Trip
             </a>
 
-            <!-- Atualizado para @fabricadebrisa_ -->
+            <!-- ✅ Só o nome visível alterado -->
             <a class="btn secondary ig" href="https://instagram.com/fabricadebrisa_" target="_blank" rel="noopener noreferrer">
               <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                 <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
               </svg>
-              @fabricadebrisa_
+              Fábrica de Brisa
             </a>
 
-            <!-- Atualizado para @fabricadasminas_ -->
+            <!-- ✅ Só o nome visível alterado -->
             <a class="btn secondary ig" href="https://instagram.com/fabricadasminas_" target="_blank" rel="noopener noreferrer">
               <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                 <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
               </svg>
-              @fabricadasminas_
+              Fábrica das Minas
             </a>
 
             <button class="btn back" type="button" data-close>← Voltar</button>
@@ -564,10 +556,8 @@ index.html (COMPLETO, com tudo que você pediu)
   </div>
 
   <script>
-    /* DATA DO EVENTO */
     const target = new Date("2026-03-14T08:00:00-03:00").getTime();
 
-    /* BPM do contador */
     const BPM = 140;
     const beatSeconds = 60 / BPM;
 
@@ -578,7 +568,6 @@ index.html (COMPLETO, com tudo que você pediu)
       countdownBox.style.animationDuration = beatSeconds + "s";
     }
 
-    /* Contador no formato solicitado, nunca zerado */
     function updateCountdown(){
       const now = Date.now();
       const diff = target - now;
@@ -593,17 +582,14 @@ index.html (COMPLETO, com tudo que você pediu)
     }
 
     updateCountdown();
-    const msToNextSecond = 1000 - (Date.now() % 1000);
-    setTimeout(() => {
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }, msToNextSecond);
+    setInterval(updateCountdown, 1000);
 
-    /* Clique no contador abre o WhatsApp do CTA */
     const vagaLink = "https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽";
+
     function openVaga(){
       window.open(vagaLink, "_blank", "noopener,noreferrer");
     }
+
     countdownBox.addEventListener("click", openVaga);
     countdownBox.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " "){
@@ -612,7 +598,7 @@ index.html (COMPLETO, com tudo que você pediu)
       }
     });
 
-    /* Áudio */
+    /* ===== ÁUDIO: toque na tela liga automaticamente ===== */
     const audio = document.getElementById("bgMusic");
     const soundBtn = document.getElementById("soundBtn");
     const hint = document.getElementById("audioHint");
@@ -628,7 +614,6 @@ index.html (COMPLETO, com tudo que você pediu)
     }
 
     function startMusic(){
-      if (!userWantsSound) return;
       if (!musicStarted){
         try { audio.currentTime = 145; } catch(e) {}
         audio.volume = 0.6;
@@ -644,17 +629,23 @@ index.html (COMPLETO, com tudo que você pediu)
       updateSoundUI();
     }
 
+    // botão manual
     soundBtn.addEventListener("click", () => {
       userWantsSound = !userWantsSound;
       if (userWantsSound) startMusic();
       else stopMusic();
     });
 
-    function firstInteraction(){
-      if (userWantsSound) startMusic();
+    // ✅ primeiro toque na tela liga o som automaticamente
+    function firstTapToEnableSound(){
+      if (!userWantsSound){
+        userWantsSound = true;
+        startMusic();
+      }
     }
-    document.addEventListener("touchstart", firstInteraction, { passive:true });
-    document.addEventListener("click", firstInteraction);
+
+    document.addEventListener("touchstart", firstTapToEnableSound, { passive:true, once:true });
+    document.addEventListener("click", firstTapToEnableSound, { once:true });
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden){
