@@ -124,12 +124,12 @@ index.html (COMPLETO - corrigido)
     }
 
     .panel-inner{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
+      background:transparent;
+      border:none;
       border-radius:24px;
       padding:18px 18px 26px;
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter:none;
       overflow:visible;
     }
 
@@ -405,6 +405,47 @@ index.html (COMPLETO - corrigido)
       }
       .desktop-bg{ display:none; }
     }
+    /* sombra para textos fora dos botões */
+.opening,
+.meta-line,
+.countdown-time,
+.audio-hint,
+.footer-note{
+  text-shadow: 0 2px 10px rgba(0,0,0,.85);
+}
+.cta-note{
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .6px;
+  color: rgba(234,240,255,.92);
+  text-shadow: 0 2px 10px rgba(0,0,0,.85);
+}.cta-note{
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .6px;
+  color: rgba(234,240,255,.92);
+  text-shadow: 0 2px 10px rgba(0,0,0,.85);
+  animation: ctaNotePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes ctaNotePulse{
+  0%{
+    opacity: .75;
+    transform: scale(1);
+  }
+  50%{
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100%{
+    opacity: .75;
+    transform: scale(1);
+  }
+}
   </style>
 </head>
 
@@ -457,7 +498,7 @@ index.html (COMPLETO - corrigido)
             <div class="sound-row">
               <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false">🔇 Som desligado</button>
             </div>
-            <div class="audio-hint" id="audioHint">🔊 Toque na tela (ou no botão) para ativar o som</div>
+            <div class="audio-hint" id="audioHint">🔊 Toque no botão para ativar o som</div>
 
             <div class="hero-buttons">
               <a
@@ -465,6 +506,7 @@ index.html (COMPLETO - corrigido)
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn primary btn-main wa"
+                <div class="cta-note">VAGAS LIMITADAS</div>
               >
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32">
                   <use href="#icon-whatsapp" xlink:href="#icon-whatsapp"></use>
@@ -472,7 +514,7 @@ index.html (COMPLETO - corrigido)
                 GARANTIR MINHA VAGA | PSYFLY
               </a>
 
-              <div class="limited">Vagas limitadas</div>
+              
 
               <!-- ✅ VOLTOU: Comunidade Não Suma Trip -->
               <a
@@ -497,8 +539,8 @@ index.html (COMPLETO - corrigido)
 
             <div class="footer-note">
               Da mesma família da Não Suma Trip<br>
-              © 2025 Não Brisa Trip | Desenvolvido por:
-              <a href="https://www.instagram.com/fabricadebrisa_" target="_blank" rel="noopener noreferrer">Fábrica de Brisa</a>
+             © <span id="yearNow"></span> Não Brisa Trip | Desenvolvido por:
+                <a href="https://www.instagram.com/oastronaut4/" target="_blank" rel="noopener noreferrer">@oastronaut4</a>
             </div>
 
             <audio id="bgMusic" preload="auto" loop>
@@ -680,6 +722,9 @@ index.html (COMPLETO - corrigido)
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !igHub.hidden) closeHub(igHub);
     });
+    // Ano automático no rodapé
+const yearEl = document.getElementById("yearNow");
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
   </script>
 
 </body>
