@@ -159,17 +159,136 @@
         box-shadow:none;
       }
       .desktop-bg{ display:none; }
-    }
+    }:root{
+  --ig-pink:#ff00a8;
+  --ig-orange:#ffb800;
+}
+
+/* BOTÃO BASE */
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+  color:#eaf0ff;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:650;
+}
+
+/* ÍCONE */
+.btn-icon{
+  width:18px;
+  height:18px;
+  display:block;
+  flex-shrink:0;
+}
+
+/* 🔥 INSTAGRAM – PADRÃO IGUAL AO INDEX */
+.btn.ig{
+  border-color: rgba(255,0,168,.35);
+  background:
+    radial-gradient(120% 180% at 15% 0%, rgba(255,0,168,.18), transparent 55%),
+    radial-gradient(120% 180% at 85% 120%, rgba(255,184,0,.18), transparent 60%),
+    rgba(255,255,255,.06);
+}
+
+.btn.ig .btn-icon{
+  color: var(--ig-pink);
+}
+
+.btn.ig:hover{
+  border-color: rgba(255,0,168,.55);
+}
+
+/* Botão voltar (neutro) */
+.btn.back{
+  background:rgba(255,255,255,.05);
+}
+
   </style>
 </head>
 
 <body>
 
-<!-- SVG SPRITE (mesmo padrão do index) -->
-<svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     style="position:absolute;width:0;height:0;overflow:hidden"
-     aria-hidden="true">
+  <!-- SVG SPRITE (Instagram) -->
+  <svg xmlns="http://www.w3.org/2000/svg"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       style="position:absolute;width:0;height:0;overflow:hidden"
+       aria-hidden="true">
+    <symbol id="icon-instagram" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5C22 19.55 19.55 22 16.25 22h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 1.5C5.28 3.5 3.5 5.28 3.5 7.75v8.5c0 2.47 1.78 4.25 4.25 4.25h8.5c2.47 0 4.25-1.78 4.25-4.25v-8.5c0-2.47-1.78-4.25-4.25-4.25h-8.5z"/>
+      <path fill="currentColor" d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+      <circle fill="currentColor" cx="17.5" cy="6.5" r="1.25"/>
+    </symbol>
+  </svg>
 
-  <symbol id="icon-instagram" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M7.75 2h8.5C19.
+  <div class="desktop-bg"></div>
+
+  <div class="stage">
+    <div class="viewport">
+      <div class="overlay"></div>
+
+      <main>
+        <div class="panel">
+          <div class="panel-inner">
+
+            <p class="hero-subtitle">
+              📸 Instagram | Hub de Links<br>
+              Escolha a página que você quer abrir
+            </p>
+
+            <div class="meta-line">
+              🌀 Viaje além da imaginação
+            </div>
+
+            <!-- ✅ HERO-BUTTONS no HUB -->
+            <div class="hero-buttons">
+
+              <a class="btn ig" href="https://instagram.com/naobrisatrip" target="_blank" rel="noopener noreferrer">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+                </svg>
+                Não Brisa Trip
+              </a>
+
+              <a class="btn ig" href="https://instagram.com/naosuma_trip" target="_blank" rel="noopener noreferrer">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+                </svg>
+                Não Suma Trip
+              </a>
+
+              <a class="btn ig" href="https://instagram.com/fabricadebrisa" target="_blank" rel="noopener noreferrer">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+                </svg>
+                Fábrica de Brisa
+              </a>
+
+              <a class="btn ig" href="https://instagram.com/fabricadasminas" target="_blank" rel="noopener noreferrer">
+                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+                </svg>
+                Fábrica das Minas
+              </a>
+
+              <a class="btn back" href="index.html">
+                ← Voltar
+              </a>
+
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+</body>
+</html>
