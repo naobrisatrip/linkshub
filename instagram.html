@@ -1,8 +1,6 @@
 <!-- ===========================
-instagram.html (COMPLETO)
-- Mesmo estilo, mesmo fundo.mp4, mesma animação IG
-- Usa hero-buttons
-- SVGs padronizados exatamente como você pediu (Instagram)
+instagram.html (COMPLETO - ajustado)
+- Só muda os nomes visíveis para "Fábrica de Brisa" e "Fábrica das Minas"
 =========================== -->
 <!doctype html>
 <html lang="pt-BR">
@@ -13,14 +11,10 @@ instagram.html (COMPLETO)
 
   <style>
     *{ box-sizing:border-box; margin:0; padding:0 }
-
     :root{
       --bg:#050712;
       --text:#eaf0ff;
       --muted:rgba(234,240,255,.85);
-      --muted2:rgba(234,240,255,.70);
-      --glass-bg:rgba(255,255,255,.08);
-      --glass-border:rgba(255,255,255,.20);
       --stroke:rgba(255,255,255,.22);
 
       --desk-w:430px;
@@ -28,7 +22,6 @@ instagram.html (COMPLETO)
 
       --ig-pink:#ff00a8;
       --ig-orange:#ffb800;
-      --ig-violet:#7c5cff;
     }
 
     body{
@@ -51,15 +44,16 @@ instagram.html (COMPLETO)
     }
 
     .stage{
-      height:100vh;
+      min-height:100vh;
+      min-height:100dvh;
       display:grid;
       place-items:center;
       padding:18px;
     }
 
     .viewport{
-      width:min(var(--desk-w),95vw);
-      height:min(var(--desk-h),92vh);
+      width:min(430px,95vw);
+      height:min(930px,92vh);
       border-radius:26px;
       overflow:hidden;
       background:var(--bg);
@@ -109,7 +103,7 @@ instagram.html (COMPLETO)
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
       border-radius:24px;
-      padding:18px;
+      padding:18px 18px 26px;
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
     }
@@ -118,12 +112,6 @@ instagram.html (COMPLETO)
       font-size:14px;
       line-height:1.45;
       color:var(--muted);
-      margin-bottom:10px;
-    }
-
-    .meta-line{
-      font-size:12px;
-      color:rgba(234,240,255,.65);
       margin-bottom:12px;
     }
 
@@ -200,9 +188,11 @@ instagram.html (COMPLETO)
     }
 
     @media (max-width:520px){
+      .stage{ padding:0; }
       .viewport{
         width:100vw;
         height:100vh;
+        height:100dvh;
         border-radius:0;
         border:none;
         box-shadow:none;
@@ -214,7 +204,6 @@ instagram.html (COMPLETO)
 
 <body>
 
-  <!-- SVG SPRITE (Instagram) -->
   <svg xmlns="http://www.w3.org/2000/svg"
        xmlns:xlink="http://www.w3.org/1999/xlink"
        style="position:absolute;width:0;height:0;overflow:hidden"
@@ -246,8 +235,6 @@ instagram.html (COMPLETO)
               Escolha a página que você quer abrir ✨
             </p>
 
-            <div class="meta-line">🌀 Viaje além da imaginação</div>
-
             <div class="hero-buttons">
               <a class="btn ig" href="https://instagram.com/naobrisatrip" target="_blank" rel="noopener noreferrer">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -263,14 +250,14 @@ instagram.html (COMPLETO)
                 Não Suma Trip
               </a>
 
-              <a class="btn ig" href="https://instagram.com/fabricadebrisa" target="_blank" rel="noopener noreferrer">
+              <a class="btn ig" href="https://instagram.com/fabricadebrisa_" target="_blank" rel="noopener noreferrer">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                   <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
                 </svg>
                 Fábrica de Brisa
               </a>
 
-              <a class="btn ig" href="https://instagram.com/fabricadasminas" target="_blank" rel="noopener noreferrer">
+              <a class="btn ig" href="https://instagram.com/fabricadasminas_" target="_blank" rel="noopener noreferrer">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                   <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
                 </svg>
