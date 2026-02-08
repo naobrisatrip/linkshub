@@ -1,3 +1,9 @@
+<!-- ===========================
+instagram.html (COMPLETO)
+- Mesmo estilo, mesmo fundo.mp4, mesma animação IG
+- Usa hero-buttons
+- SVGs padronizados exatamente como você pediu (Instagram)
+=========================== -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -5,223 +11,205 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Instagram | Hub de Links</title>
 
-  <!-- =========================
-1) COLE ESTE CSS (IGUAL) NO <style> DO index.html E DO instagram.html
-   (pode colar no final do bloco <style>)
-========================= -->
-<style>
-  :root{
-    --bg:#050712;
-    --text:#eaf0ff;
-    --muted:rgba(234,240,255,.85);
-    --muted2:rgba(234,240,255,.7);
-    --glass-bg:rgba(255,255,255,.08);
-    --glass-border:rgba(255,255,255,.20);
-    --stroke:rgba(255,255,255,.22);
+  <style>
+    *{ box-sizing:border-box; margin:0; padding:0 }
 
-    --desk-w:430px;
-    --desk-h:930px;
+    :root{
+      --bg:#050712;
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.85);
+      --muted2:rgba(234,240,255,.70);
+      --glass-bg:rgba(255,255,255,.08);
+      --glass-border:rgba(255,255,255,.20);
+      --stroke:rgba(255,255,255,.22);
 
-    --wa:#25D366;
-    --ig-pink:#ff00a8;
-    --ig-orange:#ffb800;
-  }
+      --desk-w:430px;
+      --desk-h:930px;
 
-  body{
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    min-height:100vh;
-    background:#090a14;
-    color:var(--text);
-    overflow:hidden;
-  }
-
-  /* FUNDO PADRÃO (MESMO NAS DUAS PÁGINAS) */
-  .desktop-bg{
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(1100px 680px at 50% 18%, rgba(124,92,255,.18), transparent 60%),
-      radial-gradient(820px 520px at 20% 78%, rgba(75,54,255,.14), transparent 60%),
-      radial-gradient(900px 600px at 80% 84%, rgba(234,240,255,.07), transparent 70%),
-      linear-gradient(180deg,#0b0c18,#050712);
-    z-index:-2;
-  }
-
-  .stage{
-    height:100vh;
-    display:grid;
-    place-items:center;
-    padding:18px;
-  }
-
-  .viewport{
-    width:min(var(--desk-w),95vw);
-    height:min(var(--desk-h),92vh);
-    border-radius:26px;
-    overflow:hidden;
-    background:var(--bg);
-    box-shadow:0 30px 120px rgba(0,0,0,.7);
-    border:1px solid rgba(255,255,255,.1);
-    position:relative;
-  }
-
-  .overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-      to top,
-      rgba(5,7,18,.95),
-      rgba(5,7,18,.65),
-      rgba(5,7,18,.30)
-    );
-    z-index:1;
-  }
-
-  main{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    display:grid;
-    place-items:end center;
-    padding:18px 16px;
-  }
-
-  .panel{
-    width:100%;
-    max-width:420px;
-    text-align:center;
-  }
-
-  .panel-inner{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:24px;
-    padding:18px;
-    backdrop-filter:blur(10px);
-  }
-
-  .hero-subtitle{
-    font-size:14px;
-    line-height:1.45;
-    color:var(--muted);
-    margin-bottom:10px;
-  }
-
-  .meta-line{
-    font-size:12px;
-    color:rgba(234,240,255,.65);
-    margin-bottom:12px;
-  }
-
-  .hero-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top:12px;
-  }
-
-  .btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:14px;
-    border-radius:16px;
-    border:1px solid var(--stroke);
-    background:rgba(255,255,255,.06);
-    color:var(--text);
-    text-decoration:none;
-    font-size:15px;
-    font-weight:650;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .btn.primary{
-    background:linear-gradient(135deg,#7c5cff,#4b36ff);
-    border:none;
-  }
-
-  .btn-icon{
-    width:18px;
-    height:18px;
-    display:block;
-    flex-shrink:0;
-  }
-
-  /* WhatsApp: só os botões WA ficam verdes */
-  .btn.wa .btn-icon{ color: var(--wa); }
-  .btn.wa.secondary{
-    border-color: rgba(37,211,102,.35);
-    background:
-      radial-gradient(120% 180% at 20% 0%, rgba(37,211,102,.14), transparent 55%),
-      rgba(255,255,255,.06);
-  }
-  .btn.primary.wa{
-    box-shadow: 0 14px 50px rgba(37,211,102,.22);
-  }
-
-  /* Instagram: gradiente + ícone rosa */
-  .btn.ig .btn-icon{ color: var(--ig-pink); }
-  .btn.ig{
-    border-color: rgba(255,0,168,.35);
-    background:
-      radial-gradient(120% 180% at 15% 0%, rgba(255,0,168,.18), transparent 55%),
-      radial-gradient(120% 180% at 85% 120%, rgba(255,184,0,.18), transparent 60%),
-      rgba(255,255,255,.06);
-  }
-
-  /* ✅ ANIMAÇÃO FLOW DO GRADIENTE IG (INDEX + HUB) */
-  .btn.ig::before{
-    content:"";
-    position:absolute;
-    inset:-40%;
-    background: conic-gradient(
-      from 0deg,
-      rgba(255,0,168,.30),
-      rgba(255,184,0,.26),
-      rgba(124,92,255,.22),
-      rgba(255,0,168,.30)
-    );
-    filter: blur(18px);
-    opacity:.55;
-    animation: igFlow 4.8s linear infinite;
-    z-index:0;
-  }
-  .btn.ig > *{ position:relative; z-index:1; }
-
-  @keyframes igFlow{
-    0%{ transform: rotate(0deg); }
-    100%{ transform: rotate(360deg); }
-  }
-
-  .btn.back{
-    background:rgba(255,255,255,.05);
-  }
-
-  @media (max-width:520px){
-    .viewport{
-      width:100vw;
-      height:100vh;
-      border-radius:0;
-      border:none;
-      box-shadow:none;
+      --ig-pink:#ff00a8;
+      --ig-orange:#ffb800;
+      --ig-violet:#7c5cff;
     }
-    .desktop-bg{ display:none; }
-  }
 
-  @media (prefers-reduced-motion: reduce){
-    .btn.ig::before{ animation:none; }
-  }video.bg-video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:0;
-}
-</style>
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      min-height:100vh;
+      background:#090a14;
+      color:var(--text);
+      overflow:hidden;
+    }
 
+    .desktop-bg{
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(1100px 680px at 50% 18%, rgba(124,92,255,.18), transparent 60%),
+        radial-gradient(820px 520px at 20% 78%, rgba(75,54,255,.14), transparent 60%),
+        radial-gradient(900px 600px at 80% 84%, rgba(234,240,255,.07), transparent 70%),
+        linear-gradient(180deg,#0b0c18,#050712);
+      z-index:-10;
+    }
+
+    .stage{
+      height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+    }
+
+    .viewport{
+      width:min(var(--desk-w),95vw);
+      height:min(var(--desk-h),92vh);
+      border-radius:26px;
+      overflow:hidden;
+      background:var(--bg);
+      box-shadow:0 30px 120px rgba(0,0,0,.7);
+      border:1px solid rgba(255,255,255,.1);
+      position:relative;
+    }
+
+    video.bg-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      background:var(--bg);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        to top,
+        rgba(5,7,18,.95),
+        rgba(5,7,18,.62),
+        rgba(5,7,18,.30)
+      );
+      z-index:1;
+    }
+
+    main{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      display:grid;
+      place-items:end center;
+      padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+    }
+
+    .panel{
+      width:100%;
+      max-width:420px;
+      text-align:center;
+    }
+
+    .panel-inner{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      padding:18px;
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .hero-subtitle{
+      font-size:14px;
+      line-height:1.45;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .meta-line{
+      font-size:12px;
+      color:rgba(234,240,255,.65);
+      margin-bottom:12px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-size:15px;
+      font-weight:650;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+
+    .btn-icon{
+      width:18px;
+      height:18px;
+      display:block;
+      flex-shrink:0;
+    }
+
+    .btn.ig{
+      border-color: rgba(255,0,168,.35);
+      background:
+        radial-gradient(120% 180% at 15% 0%, rgba(255,0,168,.18), transparent 55%),
+        radial-gradient(120% 180% at 85% 120%, rgba(255,184,0,.18), transparent 60%),
+        rgba(255,255,255,.06);
+    }
+    .btn.ig .btn-icon{ color: var(--ig-pink); }
+
+    .btn.ig::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255,0,168,.34),
+        rgba(255,184,0,.26),
+        rgba(124,92,255,.22),
+        rgba(255,0,168,.34)
+      );
+      filter: blur(18px);
+      opacity:.50;
+      animation: igFlow 5s linear infinite;
+      z-index:0;
+    }
+    .btn.ig > *{ position:relative; z-index:1; }
+
+    @keyframes igFlow{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+
+    .btn.back{
+      background:rgba(255,255,255,.05);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .btn.ig::before{ animation:none; }
+    }
+
+    @media (max-width:520px){
+      .viewport{
+        width:100vw;
+        height:100vh;
+        border-radius:0;
+        border:none;
+        box-shadow:none;
+      }
+      .desktop-bg{ display:none; }
+    }
+  </style>
 </head>
 
 <body>
@@ -242,10 +230,11 @@
 
   <div class="stage">
     <div class="viewport">
-      <!-- 🎥 VÍDEO DE FUNDO -->
-  <video class="bg-video" autoplay muted loop playsinline preload="metadata">
-    <source src="fundo.mp4" type="video/mp4">
-  </video>
+
+      <video class="bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="fundo.mp4" type="video/mp4">
+      </video>
+
       <div class="overlay"></div>
 
       <main>
@@ -254,16 +243,12 @@
 
             <p class="hero-subtitle">
               📸 Instagram | Hub de Links<br>
-              Escolha a página que você quer abrir
+              Escolha a página que você quer abrir ✨
             </p>
 
-            <div class="meta-line">
-              🌀 Viaje além da imaginação
-            </div>
+            <div class="meta-line">🌀 Viaje além da imaginação</div>
 
-            <!-- ✅ HERO-BUTTONS no HUB -->
             <div class="hero-buttons">
-
               <a class="btn ig" href="https://instagram.com/naobrisatrip" target="_blank" rel="noopener noreferrer">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                   <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
@@ -292,10 +277,7 @@
                 Fábrica das Minas
               </a>
 
-              <a class="btn back" href="index.html">
-                ← Voltar
-              </a>
-
+              <a class="btn back" href="index.html">← Voltar</a>
             </div>
 
           </div>
