@@ -212,7 +212,14 @@
 
   @media (prefers-reduced-motion: reduce){
     .btn.ig::before{ animation:none; }
-  }
+  }video.bg-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
 </style>
 
 </head>
@@ -235,6 +242,10 @@
 
   <div class="stage">
     <div class="viewport">
+      <!-- 🎥 VÍDEO DE FUNDO -->
+  <video class="bg-video" autoplay muted loop playsinline preload="metadata">
+    <source src="fundo.mp4" type="video/mp4">
+  </video>
       <div class="overlay"></div>
 
       <main>
