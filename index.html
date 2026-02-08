@@ -1,17 +1,14 @@
 <!-- ===========================
-index.html (COMPLETO)
-- Hub Instagram abre em overlay (sem trocar de página, música continua)
-- Fundo: fundo.mp4
-- SVGs padronizados exatamente como você pediu
-- Botões WhatsApp usam o SVG WA
-- Botões Instagram usam o SVG IG
+index.html (COMPLETO, com tudo que você pediu)
 =========================== -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Não Brisa Trip | PSYFLY</title>
+
+  <title>Não Brisa Trip | Excursões para Raves e Festivais Psytrance</title>
+  <meta name="description" content="Excursões organizadas para raves e festivais. PSYFLY, saídas de Osasco, Barueri, Carapicuíba e Barra Funda.">
 
   <style>
     *{ box-sizing:border-box; margin:0; padding:0 }
@@ -31,7 +28,6 @@ index.html (COMPLETO)
       --wa:#25D366;
       --ig-pink:#ff00a8;
       --ig-orange:#ffb800;
-      --ig-violet:#7c5cff;
     }
 
     body{
@@ -42,7 +38,18 @@ index.html (COMPLETO)
       overflow:hidden;
     }
 
-    /* Fundo fora da viewport (desktop) */
+    .sr-only{
+      position:absolute !important;
+      width:1px !important;
+      height:1px !important;
+      padding:0 !important;
+      margin:-1px !important;
+      overflow:hidden !important;
+      clip:rect(0,0,0,0) !important;
+      white-space:nowrap !important;
+      border:0 !important;
+    }
+
     .desktop-bg{
       position:fixed;
       inset:0;
@@ -54,27 +61,26 @@ index.html (COMPLETO)
       z-index:-10;
     }
 
-   .stage{
-  min-height:100vh;     /* fallback */
-  min-height:100dvh;    /* Android/Chrome moderno */
-  display:grid;
-  place-items:center;
-  padding:18px;
-}
+    .stage{
+      min-height:100vh;
+      min-height:100dvh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+      overflow:visible;
+    }
 
-    /* “Tela mobile” no desktop */
     .viewport{
       width:min(var(--desk-w),95vw);
       height:min(var(--desk-h),92vh);
       border-radius:26px;
-      overflow:hidden;
+      overflow:hidden; /* mantém bordas arredondadas, o resto a gente resolve com padding interno */
       background:var(--bg);
       box-shadow:0 30px 120px rgba(0,0,0,.7);
       border:1px solid rgba(255,255,255,.1);
       position:relative;
     }
 
-    /* Vídeo fundo */
     video.bg-video{
       position:absolute;
       inset:0;
@@ -85,7 +91,6 @@ index.html (COMPLETO)
       background:var(--bg);
     }
 
-    /* Overlay escurecedor */
     .overlay{
       position:absolute;
       inset:0;
@@ -98,7 +103,6 @@ index.html (COMPLETO)
       z-index:1;
     }
 
-    /* Conteúdo */
     main{
       position:absolute;
       inset:0;
@@ -113,66 +117,66 @@ index.html (COMPLETO)
       width:100%;
       max-width:420px;
       text-align:center;
+      overflow:visible;
     }
-.panel-inner::-webkit-scrollbar{ display:none; }
-      max-height: calc(100dvh - 40px);
-      overflow:auto;
-      scrollbar-width:none;
-      overflow: visible; 
-      padding-bottom: 22px;
+
+    .panel-inner{
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
       border-radius:24px;
-      padding:18px;
+      padding:18px 18px 26px;
       backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);
+      overflow:visible; /* não cortar sombras/scale */
     }
 
-    .hero-subtitle{
+    /* TEXTO DE ABERTURA (exatamente como você pediu) */
+    .opening{
       font-size:14px;
       line-height:1.45;
       color:var(--muted);
-      margin-bottom:10px;
+      margin-bottom:12px;
+      white-space:pre-line;
     }
 
     .meta-line{
       font-size:12px;
       color:rgba(234,240,255,.65);
-      margin-bottom:12px;
+      margin-bottom:14px;
     }
 
-    /* Countdown clicável */
+    /* CONTADOR (formato solicitado) */
     .countdown{
       border:1px solid var(--glass-border);
       background:var(--glass-bg);
       border-radius:18px;
-      padding:12px;
-      margin-bottom:16px;
+      padding:12px 12px;
+      margin-bottom:12px;
       cursor:pointer;
       user-select:none;
+      transform-origin:center;
+      will-change: transform, box-shadow;
+      overflow:visible;
     }
-    .countdown-label{
-      font-size:12px;
-      color:var(--muted2);
-      margin-bottom:6px;
-    }
+
     .countdown-time{
-      font-size:18px;
+      font-size:15px;
       font-weight:800;
-      letter-spacing:.3px;
+      letter-spacing:.2px;
     }
+
     @keyframes pulseBpm{
-  0%   { transform: scale(1);   box-shadow: 0 0 0 rgba(124,92,255,0); }
-  40%  { transform: scale(1.03); box-shadow: 0 0 30px rgba(124,92,255,.55); }
-  100% { transform: scale(1);   box-shadow: 0 0 0 rgba(124,92,255,0); }
-}
+      0%   { transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
+      40%  { transform:scale(1.03); box-shadow:0 0 30px rgba(124,92,255,.55); }
+      100% { transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
+    }
+
     .countdown.pulse{
-      animation-name: pulseBpm;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  border-color: rgba(124,92,255,.75);
- }
-    
+      animation-name:pulseBpm;
+      animation-timing-function:ease-in-out;
+      animation-iteration-count:infinite;
+      border-color:rgba(124,92,255,.75);
+    }
 
     /* Som */
     .sound-row{
@@ -195,7 +199,7 @@ index.html (COMPLETO)
     .audio-hint{
       font-size:12px;
       color:var(--muted2);
-      margin-bottom:10px;
+      margin-bottom:12px;
     }
     .audio-hint[hidden]{ display:none !important; }
 
@@ -205,6 +209,7 @@ index.html (COMPLETO)
       flex-direction:column;
       gap:10px;
       margin-top:10px;
+      overflow:visible;
     }
 
     .btn{
@@ -223,6 +228,8 @@ index.html (COMPLETO)
       position:relative;
       overflow:hidden;
       cursor:pointer;
+      transform-origin:center;
+      will-change: transform, box-shadow;
     }
 
     .btn.primary{
@@ -230,15 +237,40 @@ index.html (COMPLETO)
       border:none;
     }
 
+    /* CTA pulsante (fechar venda) */
     .btn-main{
-      margin-top: 4px;
       padding:18px;
       border-radius:18px;
       font-size:16px;
-      box-shadow:0 18px 60px rgba(124,92,255,.35);
-      margin-bottom: 8px;
-      transform-origin: center;
-      will-change: transform, box-shadow;
+      animation: ctaPulse 2.2s ease-in-out infinite;
+      box-shadow: 0 18px 60px rgba(124,92,255,.35);
+    }
+
+    @keyframes ctaPulse{
+      0%   { transform: scale(1);    box-shadow: 0 18px 60px rgba(124,92,255,.30); }
+      55%  { transform: scale(1.04); box-shadow: 0 22px 75px rgba(124,92,255,.55); }
+      100% { transform: scale(1);    box-shadow: 0 18px 60px rgba(124,92,255,.30); }
+    }
+
+    .btn-main::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,.14) 45%,
+        transparent 75%
+      );
+      transform: translateX(-140%);
+      animation: ctaShine 3.6s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    @keyframes ctaShine{
+      0%,55% { transform: translateX(-140%); opacity:0; }
+      65%    { opacity:1; }
+      100%   { transform: translateX(140%); opacity:0; }
     }
 
     /* SVG padronizado */
@@ -249,7 +281,7 @@ index.html (COMPLETO)
       flex-shrink:0;
     }
 
-    /* WhatsApp: aplicar verde só em botões WA (ícone + borda) */
+    /* WhatsApp: verde apenas nos botões WA */
     .btn.wa .btn-icon{ color: var(--wa); }
     .btn.wa{
       border-color: rgba(37,211,102,.35);
@@ -260,7 +292,7 @@ index.html (COMPLETO)
         rgba(255,255,255,.06);
     }
 
-    /* Instagram: gradiente + animação flow */
+    /* Instagram: gradiente + flow */
     .btn.ig{
       border-color: rgba(255,0,168,.35);
       background:
@@ -293,14 +325,28 @@ index.html (COMPLETO)
       100%{ transform: rotate(360deg); }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      .countdown.pulse{ animation:none; }
-      .btn.ig::before{ animation:none; }
+    /* Texto abaixo do CTA */
+    .limited{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(234,240,255,.78);
+    }
+
+    /* Rodapé discreto */
+    .footer-note{
+      margin-top:12px;
+      font-size:12px;
+      color:rgba(234,240,255,.65);
+      line-height:1.35;
+    }
+    .footer-note a{
+      color:rgba(234,240,255,.85);
+      text-decoration:none;
+      border-bottom:1px solid rgba(234,240,255,.25);
     }
 
     /* HUB overlay (Instagram) */
     .hub[hidden]{ display:none !important; }
-
     .hub{
       position:absolute;
       inset:0;
@@ -329,6 +375,7 @@ index.html (COMPLETO)
       padding:18px;
       box-shadow: 0 30px 120px rgba(0,0,0,.65);
       z-index:1;
+      overflow:visible;
     }
     .hub-title{
       font-size:16px;
@@ -347,68 +394,35 @@ index.html (COMPLETO)
       background:rgba(255,255,255,.05);
     }
 
-    /* Mobile real: ocupa toda a tela */
+    @media (prefers-reduced-motion: reduce){
+      .countdown.pulse{ animation:none; }
+      .btn-main{ animation:none; }
+      .btn-main::after{ animation:none; }
+      .btn.ig::before{ animation:none; }
+    }
+
     @media (max-width:520px){
-  .stage{
-    padding:0;
-    min-height:100vh;
-    min-height:100dvh;
-  }
-
-  .viewport{
-    width:100vw;
-    height:100vh;   /* fallback */
-    height:100dvh;  /* ajusta no Android */
-    border-radius:0;
-    border:none;
-    box-shadow:none;
-  }
-
-  .desktop-bg{ display:none; }
-}/* CTA pulsante (fechamento de venda) */
-.btn-main{
-  animation: ctaPulse 2.2s ease-in-out infinite;
-  box-shadow: 0 18px 60px rgba(124,92,255,.35);
-}
-
-@keyframes ctaPulse{
-  0%   { transform: scale(1);   box-shadow: 0 18px 60px rgba(124,92,255,.30); }
-  55%  { transform: scale(1.04); box-shadow: 0 22px 75px rgba(124,92,255,.55); }
-  100% { transform: scale(1);   box-shadow: 0 18px 60px rgba(124,92,255,.30); }
-}
-
-/* brilho passando no CTA */
-.btn-main::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255,255,255,.14) 45%,
-    transparent 75%
-  );
-  transform: translateX(-140%);
-  animation: ctaShine 3.6s ease-in-out infinite;
-  pointer-events:none;
-}
-
-@keyframes ctaShine{
-  0%, 55% { transform: translateX(-140%); opacity:0; }
-  65%     { opacity:1; }
-  100%    { transform: translateX(140%); opacity:0; }
-}
-@supports (-webkit-touch-callout: none) {
-  .countdown,
-  .btn-main{
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-}
+      .stage{
+        padding:0;
+        min-height:100vh;
+        min-height:100dvh;
+      }
+      .viewport{
+        width:100vw;
+        height:100vh;
+        height:100dvh;
+        border-radius:0;
+        border:none;
+        box-shadow:none;
+      }
+      .desktop-bg{ display:none; }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Texto oculto (SEO / acessibilidade) -->
+  <span class="sr-only">👽 NÃO BRISA TRIP</span>
 
   <!-- SVG SPRITE (WA + IG) -->
   <svg xmlns="http://www.w3.org/2000/svg"
@@ -442,18 +456,18 @@ index.html (COMPLETO)
         <div class="panel">
           <div class="panel-inner">
 
-            <p class="hero-subtitle">
-              🌀 Viaje além da imaginação<br>
-              🎉 Estreia: <strong>PSYFLY</strong>
-            </p>
+            <!-- Texto de abertura (VISÍVEL) -->
+            <p class="opening">🌀 Viaje além da imaginação.
+🎉 A experiência começa antes da pista.
 
-            <div class="meta-line">
-              🚌 Barueri • Carapicuíba • Osasco • Barra Funda
-            </div>
+🛣️ Excursões para festivais
+🎶 Frequência certa, do embarque ao retorno</p>
 
+            <div class="meta-line">🚌 Barueri • Carapicuíba • Osasco • Barra Funda</div>
+
+            <!-- Contador (formato solicitado) -->
             <div class="countdown pulse" id="countdownLink" role="link" tabindex="0" aria-label="Clique para garantir sua vaga no WhatsApp">
-              <div class="countdown-label">⏳ PSYFLY começa em</div>
-              <div class="countdown-time" id="countdown">--</div>
+              <div class="countdown-time" id="countdown">⏳ Faltam -- dias para a PSYFLY</div>
             </div>
 
             <div class="sound-row">
@@ -462,7 +476,7 @@ index.html (COMPLETO)
             <div class="audio-hint" id="audioHint">🔊 Toque na tela (ou no botão) para ativar o som</div>
 
             <div class="hero-buttons">
-              <!-- 1) WhatsApp -->
+              <!-- CTA principal -->
               <a
                 href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽"
                 target="_blank"
@@ -475,31 +489,23 @@ index.html (COMPLETO)
                 GARANTIR MINHA VAGA | PSYFLY
               </a>
 
-              <!-- 2) O que é -->
-              <button class="btn secondary" id="btnSobre" type="button">
-                👽 O que é a Não Brisa Trip?
-              </button>
+              <!-- Abaixo do CTA -->
+              <div class="limited">Vagas limitadas</div>
 
-              <!-- 3) WhatsApp comunidade -->
-              <a
-                href="https://chat.whatsapp.com/HlCRqCbzDnj9w2Va4u9Jvx"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn secondary wa"
-              >
-                <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32">
-                  <use href="#icon-whatsapp" xlink:href="#icon-whatsapp"></use>
-                </svg>
-                Comunidade Não Suma Trip
-              </a>
-
-              <!-- 4) Instagram hub -->
+              <!-- Instagram (abre hub overlay) -->
               <button class="btn secondary ig" id="openIgHub" type="button">
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                   <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
                 </svg>
                 Instagram
               </button>
+            </div>
+
+            <!-- Confiança + rodapé -->
+            <div class="footer-note">
+              Da mesma família da Não Suma Trip<br>
+              © 2025 Não Brisa Trip | Desenvolvido por:
+              <a href="https://www.instagram.com/fabricadebrisa_" target="_blank" rel="noopener noreferrer">Fábrica de Brisa</a>
             </div>
 
             <audio id="bgMusic" preload="auto" loop>
@@ -533,48 +539,22 @@ index.html (COMPLETO)
               Não Suma Trip
             </a>
 
-            <a class="btn secondary ig" href="https://instagram.com/fabricadebrisa" target="_blank" rel="noopener noreferrer">
+            <!-- Atualizado para @fabricadebrisa_ -->
+            <a class="btn secondary ig" href="https://instagram.com/fabricadebrisa_" target="_blank" rel="noopener noreferrer">
               <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                 <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
               </svg>
-              Fábrica de Brisa
+              @fabricadebrisa_
             </a>
 
-            <a class="btn secondary ig" href="https://instagram.com/fabricadasminas" target="_blank" rel="noopener noreferrer">
+            <!-- Atualizado para @fabricadasminas_ -->
+            <a class="btn secondary ig" href="https://instagram.com/fabricadasminas_" target="_blank" rel="noopener noreferrer">
               <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
                 <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
               </svg>
-              Fábrica das Minas
+              @fabricadasminas_
             </a>
 
-            <button class="btn back" type="button" data-close>← Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOBRE (overlay simples) -->
-      <div class="hub" id="sobreHub" hidden aria-hidden="true">
-        <div class="hub-backdrop" data-close></div>
-
-        <div class="hub-card" role="dialog" aria-modal="true" aria-label="Sobre a Não Brisa Trip">
-          <div class="hub-title">👽 O que é a Não Brisa Trip?</div>
-          <div class="hub-sub">
-            A Não Brisa Trip é a sua viagem guiada para os rolês: organização, embarque e vibe alinhada.
-            Você só chega, curte e volta com segurança. 🚌🌀
-          </div>
-
-          <div class="hero-buttons">
-            <a
-              href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn secondary wa"
-            >
-              <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32">
-                <use href="#icon-whatsapp" xlink:href="#icon-whatsapp"></use>
-              </svg>
-              Garantir minha vaga agora
-            </a>
             <button class="btn back" type="button" data-close>← Voltar</button>
           </div>
         </div>
@@ -584,61 +564,59 @@ index.html (COMPLETO)
   </div>
 
   <script>
-    /* =========================
-       CONFIG
-    ========================= */
+    /* DATA DO EVENTO */
     const target = new Date("2026-03-14T08:00:00-03:00").getTime();
-    const vagaLink = "https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽";
+
+    /* BPM do contador */
+    const BPM = 140;
+    const beatSeconds = 60 / BPM;
 
     const countdownEl = document.getElementById("countdown");
-    const countdownLink = document.getElementById("countdownLink");
+    const countdownBox = document.getElementById("countdownLink");
 
-    const audio = document.getElementById("bgMusic");
-    const soundBtn = document.getElementById("soundBtn");
-    const hint = document.getElementById("audioHint");
-
-    /* =========================
-       COUNTDOWN
-    ========================= */
-    function formatCountdown(ms){
-      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-      const d = Math.floor(totalSeconds / 86400);
-      const h = Math.floor((totalSeconds % 86400) / 3600);
-      const m = Math.floor((totalSeconds % 3600) / 60);
-      const s = totalSeconds % 60;
-      return `${d}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+    if (countdownBox){
+      countdownBox.style.animationDuration = beatSeconds + "s";
     }
 
-    function tick(){
-      const diff = target - Date.now();
-      if(diff <= 0){
-        countdownEl.textContent = "🚌 Embarque iniciado!";
+    /* Contador no formato solicitado, nunca zerado */
+    function updateCountdown(){
+      const now = Date.now();
+      const diff = target - now;
+
+      if (diff <= 0){
+        countdownEl.textContent = "⏳ A PSYFLY é hoje";
         return;
       }
-      countdownEl.textContent = formatCountdown(diff);
+
+      const days = Math.ceil(diff / 86400000);
+      countdownEl.textContent = `⏳ Faltam ${days} dias para a PSYFLY`;
     }
-    tick();
+
+    updateCountdown();
     const msToNextSecond = 1000 - (Date.now() % 1000);
     setTimeout(() => {
-      tick();
-      setInterval(tick, 1000);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     }, msToNextSecond);
 
+    /* Clique no contador abre o WhatsApp do CTA */
+    const vagaLink = "https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20🚌👽";
     function openVaga(){
       window.open(vagaLink, "_blank", "noopener,noreferrer");
     }
-
-    countdownLink.addEventListener("click", openVaga);
-    countdownLink.addEventListener("keydown", (e) => {
+    countdownBox.addEventListener("click", openVaga);
+    countdownBox.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " "){
         e.preventDefault();
         openVaga();
       }
     });
 
-    /* =========================
-       ÁUDIO (continua tocando porque NÃO troca de página)
-    ========================= */
+    /* Áudio */
+    const audio = document.getElementById("bgMusic");
+    const soundBtn = document.getElementById("soundBtn");
+    const hint = document.getElementById("audioHint");
+
     let musicStarted = false;
     let userWantsSound = false;
 
@@ -646,7 +624,7 @@ index.html (COMPLETO)
       const on = userWantsSound && !audio.paused;
       soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
       soundBtn.textContent = on ? "🔊 Som ligado" : "🔇 Som desligado";
-      if (hint) hint.hidden = on;
+      hint.hidden = on;
     }
 
     function startMusic(){
@@ -658,9 +636,7 @@ index.html (COMPLETO)
       audio.play().then(() => {
         musicStarted = true;
         updateSoundUI();
-      }).catch(() => {
-        updateSoundUI();
-      });
+      }).catch(() => updateSoundUI());
     }
 
     function stopMusic(){
@@ -674,14 +650,12 @@ index.html (COMPLETO)
       else stopMusic();
     });
 
-    // primeiro gesto do usuário libera autoplay
     function firstInteraction(){
       if (userWantsSound) startMusic();
     }
-    document.addEventListener("touchstart", firstInteraction, { passive:true, once:false });
-    document.addEventListener("click", firstInteraction, { once:false });
+    document.addEventListener("touchstart", firstInteraction, { passive:true });
+    document.addEventListener("click", firstInteraction);
 
-    // pausa ao esconder aba e retorna (se usuário queria som)
     document.addEventListener("visibilitychange", () => {
       if (document.hidden){
         if (!audio.paused) audio.pause();
@@ -693,14 +667,9 @@ index.html (COMPLETO)
 
     updateSoundUI();
 
-    /* =========================
-       HUBS (Instagram e Sobre)
-    ========================= */
+    /* Hub Instagram overlay */
     const igHub = document.getElementById("igHub");
     const openIgHub = document.getElementById("openIgHub");
-
-    const sobreHub = document.getElementById("sobreHub");
-    const btnSobre = document.getElementById("btnSobre");
 
     function openHub(el){
       el.hidden = false;
@@ -712,29 +681,14 @@ index.html (COMPLETO)
     }
 
     openIgHub.addEventListener("click", () => openHub(igHub));
-    btnSobre.addEventListener("click", () => openHub(sobreHub));
 
-    function hubClickClose(e){
-      const host = e.currentTarget;
-      if (e.target && e.target.matches("[data-close]")) closeHub(host);
-    }
-    igHub.addEventListener("click", hubClickClose);
-    sobreHub.addEventListener("click", hubClickClose);
+    igHub.addEventListener("click", (e) => {
+      if (e.target && e.target.matches("[data-close]")) closeHub(igHub);
+    });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape"){
-        if (!igHub.hidden) closeHub(igHub);
-        if (!sobreHub.hidden) closeHub(sobreHub);
-      }
-    });/* ===== BPM DO CONTADOR ===== */
-const BPM = 140;
-const beatSeconds = 60 / BPM;
-
-const countdownBox = document.getElementById("countdownLink");
-if (countdownBox){
-  countdownBox.style.animationDuration = beatSeconds + "s";
-}
-
+      if (e.key === "Escape" && !igHub.hidden) closeHub(igHub);
+    });
   </script>
 
 </body>
