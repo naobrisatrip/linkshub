@@ -106,7 +106,7 @@ index.html (COMPLETO)
       display:grid;
       place-items:end center;
       padding:18px 16px calc(18px + env(safe-area-inset-bottom));
-      overflow:hidden;
+      overflow:visible;
     }
 
     .panel{
@@ -122,6 +122,8 @@ index.html (COMPLETO)
 }
 .panel-inner::-webkit-scrollbar{ display:none; }
 
+      overflow: visible; 
+      padding-bottom: 22px;
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
       border-radius:24px;
@@ -163,15 +165,18 @@ index.html (COMPLETO)
       font-weight:800;
       letter-spacing:.3px;
     }
-    @keyframes pulseBeat{
-      0%{ transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
-      45%{ transform:scale(1.03); box-shadow:0 0 32px rgba(124,92,255,.40); }
-      100%{ transform:scale(1); box-shadow:0 0 0 rgba(124,92,255,0); }
-    }
+    @keyframes pulseBpm{
+  0%   { transform: scale(1);   box-shadow: 0 0 0 rgba(124,92,255,0); }
+  40%  { transform: scale(1.03); box-shadow: 0 0 30px rgba(124,92,255,.55); }
+  100% { transform: scale(1);   box-shadow: 0 0 0 rgba(124,92,255,0); }
+}
     .countdown.pulse{
-      animation:pulseBeat 1.8s ease-in-out infinite;
-      border-color:rgba(124,92,255,.55);
-    }
+      animation-name: pulseBpm;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  border-color: rgba(124,92,255,.75);
+ }
+    
 
     /* Som */
     .sound-row{
@@ -360,7 +365,40 @@ index.html (COMPLETO)
   }
 
   .desktop-bg{ display:none; }
+}/* CTA pulsante (fechamento de venda) */
+.btn-main{
+  animation: ctaPulse 2.2s ease-in-out infinite;
+  box-shadow: 0 18px 60px rgba(124,92,255,.35);
 }
+
+@keyframes ctaPulse{
+  0%   { transform: scale(1);   box-shadow: 0 18px 60px rgba(124,92,255,.30); }
+  55%  { transform: scale(1.04); box-shadow: 0 22px 75px rgba(124,92,255,.55); }
+  100% { transform: scale(1);   box-shadow: 0 18px 60px rgba(124,92,255,.30); }
+}
+
+/* brilho passando no CTA */
+.btn-main::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,.14) 45%,
+    transparent 75%
+  );
+  transform: translateX(-140%);
+  animation: ctaShine 3.6s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes ctaShine{
+  0%, 55% { transform: translateX(-140%); opacity:0; }
+  65%     { opacity:1; }
+  100%    { transform: translateX(140%); opacity:0; }
+}
+
   </style>
 </head>
 
@@ -682,7 +720,15 @@ index.html (COMPLETO)
         if (!igHub.hidden) closeHub(igHub);
         if (!sobreHub.hidden) closeHub(sobreHub);
       }
-    });
+    });/* ===== BPM DO CONTADOR ===== */
+const BPM = 140;
+const beatSeconds = 60 / BPM;
+
+const countdownBox = document.getElementById("countdownLink");
+if (countdownBox){
+  countdownBox.style.animationDuration = beatSeconds + "s";
+}
+
   </script>
 
 </body>
