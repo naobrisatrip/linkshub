@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Instagram | Hub de Links</title>
+
+  <style>
+    *{ box-sizing:border-box; margin:0; padding:0 }
+
+    :root{
+      --bg:#050712;
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.82);
+      --stroke:rgba(255,255,255,.18);
+      --glass:rgba(255,255,255,.06);
+
+      --desk-w:430px;
+      --desk-h:930px;
+
+      --ig1:#ff00a8;
+      --ig2:#ffb800;
+      --wa:#25D366;
+    }
+
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      min-height:100vh;
+      background:#090a14;
+      color:var(--text);
+      overflow:hidden;
+    }
+
+    .desktop-bg{
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(1100px 680px at 50% 18%, rgba(124,92,255,.18), transparent 60%),
+        linear-gradient(180deg,#0b0c18,#050712);
+      z-index:-2;
+    }
+
+    .stage{
+      height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+    }
+
+    .viewport{
+      width:min(var(--desk-w),95vw);
+      height:min(var(--desk-h),92vh);
+      border-radius:26px;
+      overflow:hidden;
+      background:var(--bg);
+      box-shadow:0 30px 120px rgba(0,0,0,.7);
+      border:1px solid rgba(255,255,255,.1);
+      position:relative;
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        to top,
+        rgba(5,7,18,.95),
+        rgba(5,7,18,.65),
+        rgba(5,7,18,.30)
+      );
+      z-index:0;
+    }
+
+    main{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      display:grid;
+      place-items:start center;
+      padding:18px 16px;
+    }
+
+    .panel{
+      width:100%;
+      max-width:420px;
+      text-align:center;
+    }
+
+    .panel-inner{
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      padding:18px;
+      backdrop-filter:blur(10px);
+    }
+
+    .title{
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:6px;
+      letter-spacing:.2px;
+    }
+
+    .subtitle{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.4;
+      margin-bottom:14px;
+    }
+
+    .links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-size:15px;
+      font-weight:650;
+    }
+
+    .btn-icon{
+      width:18px;
+      height:18px;
+      display:block;
+      flex-shrink:0;
+    }
+
+    /* Instagram com gradiente sutil */
+    .btn.ig{
+      border-color: rgba(255,255,255,.16);
+      background:
+        radial-gradient(120% 180% at 20% 0%, rgba(255,0,168,.18), transparent 55%),
+        radial-gradient(120% 180% at 80% 110%, rgba(255,184,0,.16), transparent 60%),
+        rgba(255,255,255,.06);
+    }
+
+    /* Botão de voltar */
+    .btn.back{
+      background:rgba(255,255,255,.05);
+    }
+
+    @media (max-width:520px){
+      .viewport{
+        width:100vw;
+        height:100vh;
+        border-radius:0;
+        border:none;
+        box-shadow:none;
+      }
+      .desktop-bg{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SVG SPRITE (mesmo padrão do index) -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     style="position:absolute;width:0;height:0;overflow:hidden"
+     aria-hidden="true">
+
+  <symbol id="icon-instagram" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7.75 2h8.5C19.
