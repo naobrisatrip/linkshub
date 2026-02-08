@@ -54,12 +54,13 @@ index.html (COMPLETO)
       z-index:-10;
     }
 
-    .stage{
-      height:100vh;
-      display:grid;
-      place-items:center;
-      padding:18px;
-    }
+   .stage{
+  min-height:100vh;     /* fallback */
+  min-height:100dvh;    /* Android/Chrome moderno */
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
 
     /* “Tela mobile” no desktop */
     .viewport{
@@ -105,6 +106,7 @@ index.html (COMPLETO)
       display:grid;
       place-items:end center;
       padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+      overflow:hidden;
     }
 
     .panel{
@@ -114,6 +116,12 @@ index.html (COMPLETO)
     }
 
     .panel-inner{
+  max-height: calc(100dvh - 40px);
+  overflow:auto;
+  scrollbar-width:none;
+}
+.panel-inner::-webkit-scrollbar{ display:none; }
+
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
       border-radius:24px;
@@ -336,15 +344,23 @@ index.html (COMPLETO)
 
     /* Mobile real: ocupa toda a tela */
     @media (max-width:520px){
-      .viewport{
-        width:100vw;
-        height:100vh;
-        border-radius:0;
-        border:none;
-        box-shadow:none;
-      }
-      .desktop-bg{ display:none; }
-    }
+  .stage{
+    padding:0;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+
+  .viewport{
+    width:100vw;
+    height:100vh;   /* fallback */
+    height:100dvh;  /* ajusta no Android */
+    border-radius:0;
+    border:none;
+    box-shadow:none;
+  }
+
+  .desktop-bg{ display:none; }
+}
   </style>
 </head>
 
