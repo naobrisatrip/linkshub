@@ -243,7 +243,35 @@
 .btn.primary.wa{
   /* mantém o gradiente roxo do CTA, mas com “aura” verde */
   box-shadow: 0 14px 50px rgba(37,211,102,.28);
+}:root{
+  --ig-pink:#ff00a8;
+  --ig-orange:#ffb800;
 }
+
+/* ÍCONE INSTAGRAM */
+.btn.ig .btn-icon{
+  color: var(--ig-pink);
+}
+
+/* BOTÃO INSTAGRAM */
+.btn.ig{
+  border-color: rgba(255,0,168,.35);
+  background:
+    radial-gradient(120% 180% at 15% 0%, rgba(255,0,168,.18), transparent 55%),
+    radial-gradient(120% 180% at 85% 120%, rgba(255,184,0,.18), transparent 60%),
+    rgba(255,255,255,.06);
+}
+
+/* HOVER (desktop) */
+.btn.ig:hover{
+  border-color: rgba(255,0,168,.55);
+}
+
+/* SE FOR BOTÃO PRINCIPAL (caso use no futuro) */
+.btn.primary.ig{
+  box-shadow: 0 14px 50px rgba(255,0,168,.35);
+}
+
   </style>
 </head>
 
@@ -335,10 +363,7 @@
   </a>
 
   <!-- INSTAGRAM (PÁGINA HUB) -->
-  <a
-    href="instagram.html"
-    class="btn secondary"
-  >
+  <a href="instagram.html" class="btn secondary ig">
     <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
       <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
     </svg>
