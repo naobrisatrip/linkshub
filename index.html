@@ -722,6 +722,45 @@ index.html (COMPLETO - corrigido)
     // Ano automático no rodapé
 const yearEl = document.getElementById("yearNow");
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    <script>
+  // 🌐 Instagram universal (iOS + Android + Desktop)
+  function abrirInstagram(event, username){
+    if (event) event.preventDefault();
+
+    const webUrl = "https://www.instagram.com/" + username + "/";
+    const iosAppUrl = "instagram://user?username=" + username;
+    const androidAppUrl = "intent://instagram.com/_u/" + username +
+      "#Intent;package=com.instagram.android;scheme=https;end";
+
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const isAndroid = /Android/.test(ua);
+
+    if (isIOS){
+      // 🍎 iPhone / iPad
+      window.location.href = iosAppUrl;
+
+      // fallback Safari
+      setTimeout(() => {
+        window.location.href = webUrl;
+      }, 800);
+
+    } else if (isAndroid){
+      // 🤖 Android
+      window.location.href = androidAppUrl;
+
+      // fallback Chrome
+      setTimeout(() => {
+        window.location.href = webUrl;
+      }, 800);
+
+    } else {
+      // 🖥️ Desktop / outros
+      window.open(webUrl, "_blank", "noopener,noreferrer");
+    }
+  }
+</script>
+
   </script>
 
 </body>
