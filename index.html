@@ -3,6 +3,8 @@ index.html (COMPLETO - corrigido)
 - Volta o botão Comunidade
 - Toque na tela ativa o som (primeiro toque liga)
 - Mantém botão de som para desligar/ligar depois
+- Corrige HTML inválido que quebrava contador/overlay
+- Links do Instagram funcionam em iPhone/Android (app + fallback)
 =========================== -->
 <!doctype html>
 <html lang="pt-BR">
@@ -147,8 +149,18 @@ index.html (COMPLETO - corrigido)
       margin-bottom:14px;
     }
 
-    /* ✅ contador oculto */
-    .countdown{ display:none !important; }
+    .countdown{
+      border:1px solid var(--glass-border);
+      background:var(--glass-bg);
+      border-radius:18px;
+      padding:12px 12px;
+      margin-bottom:12px;
+      cursor:pointer;
+      user-select:none;
+      transform-origin:center;
+      will-change: transform, box-shadow;
+      overflow:visible;
+    }
 
     .countdown-time{
       font-size:15px;
@@ -395,42 +407,42 @@ index.html (COMPLETO - corrigido)
       }
       .desktop-bg{ display:none; }
     }
+
     /* sombra para textos fora dos botões */
-.opening,
-.meta-line,
-.countdown-time,
-.audio-hint,
-.footer-note{
-  text-shadow: 0 2px 10px rgba(0,0,0,.85);
-}
-.cta-note{
-  margin: 8px auto 0;
-  width: 100%;
-  text-align: center;
+    .opening,
+    .meta-line,
+    .countdown-time,
+    .audio-hint,
+    .footer-note{
+      text-shadow: 0 2px 10px rgba(0,0,0,.85);
+    }
 
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .6px;
-  color: rgba(234,240,255,.92);
-  text-shadow: 0 2px 10px rgba(0,0,0,.85);
+    .cta-note{
+      margin: 8px auto 0;
+      width: 100%;
+      text-align: center;
 
-  /* blindagem total contra layout de botão */
-  display: block;
-  position: static;
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  box-shadow: none !important;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      color: rgba(234,240,255,.92);
+      text-shadow: 0 2px 10px rgba(0,0,0,.85);
 
-  animation: ctaNotePulse 2.6s ease-in-out infinite;
-}
+      display: block;
+      position: static;
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      box-shadow: none !important;
 
-@keyframes ctaNotePulse{
-  0%{ opacity:.75; transform: scale(1); }
-  50%{ opacity:1; transform: scale(1.06); }
-  100%{ opacity:.75; transform: scale(1); }
-}
-}
+      animation: ctaNotePulse 2.6s ease-in-out infinite;
+    }
+
+    @keyframes ctaNotePulse{
+      0%{ opacity:.75; transform: scale(1); }
+      50%{ opacity:1; transform: scale(1.06); }
+      100%{ opacity:.75; transform: scale(1); }
+    }
   </style>
 </head>
 
@@ -487,22 +499,21 @@ index.html (COMPLETO - corrigido)
             <div class="audio-hint" id="audioHint">🔊 Toque no botão para ativar o som</div>
 
             <div class="hero-buttons">
+              <!-- ✅ CTA PRINCIPAL (corrigido: removido </div> inválido) -->
               <a
                 href="https://wa.me/5511965827243?text=Quero%20garantir%20minha%20vaga%20na%20PSYFLY%20pela%20Não%20Brisa%20Trip%20"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn primary btn-main wa"
-                </div>
-            
-                
+              >
                 <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32">
                   <use href="#icon-whatsapp" xlink:href="#icon-whatsapp"></use>
                 </svg>
-                GARANTIR MINHA VAGA | PSYFLY 
+                GARANTIR MINHA VAGA | PSYFLY
                 VAGAS LIMITADAS
               </a>
-                 <div class="cta-note"></div>
-              
+
+              <div class="cta-note"></div>
 
               <!-- ✅ VOLTOU: Comunidade Não Suma Trip -->
               <a
@@ -527,8 +538,9 @@ index.html (COMPLETO - corrigido)
 
             <div class="footer-note">
               Da mesma família da Não Suma Trip<br>
-             © <span id="yearNow"></span> Não Brisa Trip | Desenvolvido por:
-                <a href="https://www.instagram.com/oastronaut4?igsh=MzdhOXRkM3RrbnFs"><target="_blank" rel="noopener noreferrer">@oastronaut4</a>
+              © <span id="yearNow"></span> Não Brisa Trip | Desenvolvido por:
+              <!-- ✅ corrigido target -->
+              <a href="https://www.instagram.com/oastronaut4?igsh=MzdhOXRkM3RrbnFs" target="_blank" rel="noopener noreferrer">@oastronaut4</a>
             </div>
 
             <audio id="bgMusic" preload="auto" loop>
@@ -547,37 +559,36 @@ index.html (COMPLETO - corrigido)
           <div class="hub-sub">Escolha a página que você quer abrir ✨</div>
 
           <div class="hero-buttons">
-    <a class="btn secondary ig" href="https://www.instagram.com/naobrisatrip/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'naobrisatrip')">
-        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
-            <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
-        </svg>
-        Não Brisa Trip
-    </a>
+            <a class="btn secondary ig" href="https://www.instagram.com/naobrisatrip/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'naobrisatrip')">
+              <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+              </svg>
+              Não Brisa Trip
+            </a>
 
-    <a class="btn secondary ig" href="https://www.instagram.com/naosuma_trip/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'naosuma_trip')">
-        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
-            <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
-        </svg>
-        Não Suma Trip
-    </a>
+            <a class="btn secondary ig" href="https://www.instagram.com/naosuma_trip/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'naosuma_trip')">
+              <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+              </svg>
+              Não Suma Trip
+            </a>
 
-    <a class="btn secondary ig" href="https://www.instagram.com/fabricadebrisa_/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'fabricadebrisa_')">
-        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
-            <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
-        </svg>
-        Fábrica de Brisa
-    </a>
+            <a class="btn secondary ig" href="https://www.instagram.com/fabricadebrisa_/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'fabricadebrisa_')">
+              <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+              </svg>
+              Fábrica de Brisa
+            </a>
 
-    <a class="btn secondary ig" href="https://www.instagram.com/fabricadasminas_/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'fabricadasminas_')">
-        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
-            <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
-        </svg>
-        Fábrica das Minas
-    </a>
-</div>
-
-            <button class="btn back" type="button" data-close>← Voltar</button>
+            <a class="btn secondary ig" href="https://www.instagram.com/fabricadasminas_/" target="_blank" rel="noopener noreferrer" onclick="abrirInstagram(event, 'fabricadasminas_')">
+              <svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <use href="#icon-instagram" xlink:href="#icon-instagram"></use>
+              </svg>
+              Fábrica das Minas
+            </a>
           </div>
+
+          <button class="btn back" type="button" data-close>← Voltar</button>
         </div>
       </div>
 
@@ -598,6 +609,8 @@ index.html (COMPLETO - corrigido)
     }
 
     function updateCountdown(){
+      if (!countdownEl) return;
+
       const now = Date.now();
       const diff = target - now;
 
@@ -619,13 +632,15 @@ index.html (COMPLETO - corrigido)
       window.open(vagaLink, "_blank", "noopener,noreferrer");
     }
 
-    countdownBox.addEventListener("click", openVaga);
-    countdownBox.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " "){
-        e.preventDefault();
-        openVaga();
-      }
-    });
+    if (countdownBox){
+      countdownBox.addEventListener("click", openVaga);
+      countdownBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          openVaga();
+        }
+      });
+    }
 
     /* ===== ÁUDIO: toque na tela liga automaticamente ===== */
     const audio = document.getElementById("bgMusic");
@@ -636,6 +651,7 @@ index.html (COMPLETO - corrigido)
     let userWantsSound = false;
 
     function updateSoundUI(){
+      if (!audio || !soundBtn || !hint) return;
       const on = userWantsSound && !audio.paused;
       soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
       soundBtn.textContent = on ? "🔊 Som ligado" : "🔇 Som desligado";
@@ -643,6 +659,7 @@ index.html (COMPLETO - corrigido)
     }
 
     function startMusic(){
+      if (!audio) return;
       if (!musicStarted){
         try { audio.currentTime = 145; } catch(e) {}
         audio.volume = 0.6;
@@ -654,18 +671,19 @@ index.html (COMPLETO - corrigido)
     }
 
     function stopMusic(){
+      if (!audio) return;
       audio.pause();
       updateSoundUI();
     }
 
-    // botão manual
-    soundBtn.addEventListener("click", () => {
-      userWantsSound = !userWantsSound;
-      if (userWantsSound) startMusic();
-      else stopMusic();
-    });
+    if (soundBtn){
+      soundBtn.addEventListener("click", () => {
+        userWantsSound = !userWantsSound;
+        if (userWantsSound) startMusic();
+        else stopMusic();
+      });
+    }
 
-    // ✅ primeiro toque na tela liga o som automaticamente
     function firstTapToEnableSound(){
       if (!userWantsSound){
         userWantsSound = true;
@@ -677,6 +695,7 @@ index.html (COMPLETO - corrigido)
     document.addEventListener("click", firstTapToEnableSound, { once:true });
 
     document.addEventListener("visibilitychange", () => {
+      if (!audio) return;
       if (document.hidden){
         if (!audio.paused) audio.pause();
       } else {
@@ -692,26 +711,64 @@ index.html (COMPLETO - corrigido)
     const openIgHub = document.getElementById("openIgHub");
 
     function openHub(el){
+      if (!el) return;
       el.hidden = false;
       el.setAttribute("aria-hidden", "false");
     }
     function closeHub(el){
+      if (!el) return;
       el.hidden = true;
       el.setAttribute("aria-hidden", "true");
     }
 
-    openIgHub.addEventListener("click", () => openHub(igHub));
+    if (openIgHub){
+      openIgHub.addEventListener("click", () => openHub(igHub));
+    }
 
-    igHub.addEventListener("click", (e) => {
-      if (e.target && e.target.matches("[data-close]")) closeHub(igHub);
-    });
+    if (igHub){
+      igHub.addEventListener("click", (e) => {
+        if (e.target && e.target.matches("[data-close]")) closeHub(igHub);
+      });
+    }
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !igHub.hidden) closeHub(igHub);
+      if (e.key === "Escape" && igHub && !igHub.hidden) closeHub(igHub);
     });
+
     // Ano automático no rodapé
-const yearEl = document.getElementById("yearNow");
-if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    const yearEl = document.getElementById("yearNow");
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    // ✅ Instagram: abre no app quando possível e cai pro web quando não
+    function abrirInstagram(event, username){
+      if (event) event.preventDefault();
+
+      const webUrl = "https://www.instagram.com/" + username + "/";
+      const iosAppUrl = "instagram://user?username=" + username;
+      const androidAppUrl = "intent://instagram.com/_u/" + username +
+        "#Intent;package=com.instagram.android;scheme=https;end";
+
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPad|iPhone|iPod/.test(ua);
+      const isAndroid = /Android/.test(ua);
+
+      if (isIOS){
+        window.location.href = iosAppUrl;
+        setTimeout(() => { window.location.href = webUrl; }, 800);
+        return;
+      }
+
+      if (isAndroid){
+        window.location.href = androidAppUrl;
+        setTimeout(() => { window.location.href = webUrl; }, 800);
+        return;
+      }
+
+      window.open(webUrl, "_blank", "noopener,noreferrer");
+    }
+
+    // deixa disponível pro onclick inline
+    window.abrirInstagram = abrirInstagram;
   </script>
 
 </body>
